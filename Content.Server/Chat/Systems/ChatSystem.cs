@@ -404,19 +404,14 @@ public sealed partial class ChatSystem : SharedChatSystem
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Station Announcement on {station} from {sender}: {message}");
     }
 
-    public void DispatchServerAnnouncement(
+    public void DispatchServerMessage(
         string message,
-        bool playSound = false,
-        SoundSpecifier? announcementSound = null,
         Color? colorOverride = null
         )
     {
         var wrappedMessage = Loc.GetString(FormattedMessage.EscapeText(message));
         _chatManager.ChatMessageToAll(ChatChannel.Radio, message, wrappedMessage, default, false, true, colorOverride);
-        if (playSound)
-        {
-            _audio.PlayGlobal(announcementSound == null ? DefaultAnnouncementSound : _audio.GetSound(announcementSound), Filter.Broadcast(), true, AudioParams.Default.WithVolume(-2f));
-        }
+
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Global station message : {message}");
     }
 
