@@ -151,3 +151,7 @@ chat-speech-verb-name-electricity = Electricity
 chat-speech-verb-electricity-1 = crackles
 chat-speech-verb-electricity-2 = buzzes
 chat-speech-verb-electricity-3 = screeches
+
+chat-manager-sender-server = Server
+chat-manager-sender-server-wrap-message = [font size=14][bold]{$sender} Announcement:[/font][font size=12]
+                                                {$message}[/bold][/font]
