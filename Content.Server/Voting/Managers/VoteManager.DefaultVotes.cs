@@ -15,7 +15,9 @@ using Content.Shared.Ghost;
 using Content.Shared.Players;
 using Content.Shared.Players.PlayTimeTracking;
 using Content.Shared.Voting;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Robust.Shared.Configuration;
+using Robust.Shared.Console;
 using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
@@ -58,7 +60,7 @@ namespace Content.Server.Voting.Managers
                     CreateRestartVote(initiator);
                     break;
                 case StandardVoteType.Preset:
-                    CreatePresetVote(initiator);
+                    CreatePresetVote(initiator, args);
                     break;
                 case StandardVoteType.Map:
                     CreateMapVote(initiator);
@@ -214,9 +216,18 @@ namespace Content.Server.Voting.Managers
                 Loc.GetString("ui-vote-restart-fail-not-enough-ghost-players", ("ghostPlayerRequirement", ghostPercentageRequirement)));
         }
 
-        private void CreatePresetVote(ICommonSession? initiator)
+        private void CreatePresetVote(ICommonSession? initiator, string[]? args = null)
         {
-            var presets = GetGamePresets();
+            var presets = GetGamePresets(true);
+            if (args is { Length: > 0 } && presets.Any(allPreset =>
+                    args.Any(preset => preset == allPreset.Key)))
+            {
+                presets = presets.Where(allPreset =>
+                    args.Any(preset => preset == allPreset.Key))
+                    .ToDictionary();
+                if (presets is { Count: 0 })
+                    presets = GetGamePresets(false);
+            }
 
             var alone = _playerManager.PlayerCount == 1 && initiator != null;
             var options = new VoteOptions
@@ -569,20 +580,23 @@ namespace Content.Server.Voting.Managers
             DirtyCanCallVoteAll();
         }
 
-        private Dictionary<string, string> GetGamePresets()
+        private Dictionary<string, string> GetGamePresets(bool isAll = false)
         {
             var presets = new Dictionary<string, string>();
 
             foreach (var preset in _prototypeManager.EnumeratePrototypes<GamePresetPrototype>())
             {
-                if(!preset.ShowInVote)
-                    continue;
+                if (!isAll)
+                {
+                    if(!preset.ShowInVote)
+                        continue;
 
-                if(_playerManager.PlayerCount < (preset.MinPlayers ?? int.MinValue))
-                    continue;
+                    if(_playerManager.PlayerCount < (preset.MinPlayers ?? int.MinValue))
+                        continue;
 
-                if(_playerManager.PlayerCount > (preset.MaxPlayers ?? int.MaxValue))
-                    continue;
+                    if(_playerManager.PlayerCount > (preset.MaxPlayers ?? int.MaxValue))
+                        continue;
+                }
 
                 presets[preset.ID] = preset.ModeTitle;
             }
