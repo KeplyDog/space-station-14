@@ -218,15 +218,14 @@ namespace Content.Server.Voting.Managers
 
         private void CreatePresetVote(ICommonSession? initiator, string[]? args = null)
         {
-            var presets = GetGamePresets(true);
-            if (args is { Length: > 0 } && presets.Any(allPreset =>
-                    args.Any(preset => preset == allPreset.Key)))
+            var presets = GetGamePresets();
+            if (args is { Length: > 0 })
             {
-                presets = presets.Where(allPreset =>
+                var targetPresets = presets.Where(allPreset =>
                     args.Any(preset => preset == allPreset.Key))
                     .ToDictionary();
-                if (presets is { Count: 0 })
-                    presets = GetGamePresets(false);
+                if (targetPresets.Count > 0)
+                    presets = targetPresets;
             }
 
             var alone = _playerManager.PlayerCount == 1 && initiator != null;
@@ -580,23 +579,20 @@ namespace Content.Server.Voting.Managers
             DirtyCanCallVoteAll();
         }
 
-        private Dictionary<string, string> GetGamePresets(bool isAll = false)
+        private Dictionary<string, string> GetGamePresets()
         {
             var presets = new Dictionary<string, string>();
 
             foreach (var preset in _prototypeManager.EnumeratePrototypes<GamePresetPrototype>())
             {
-                if (!isAll)
-                {
-                    if(!preset.ShowInVote)
-                        continue;
+                if(!preset.ShowInVote)
+                    continue;
 
-                    if(_playerManager.PlayerCount < (preset.MinPlayers ?? int.MinValue))
-                        continue;
+                if(_playerManager.PlayerCount < (preset.MinPlayers ?? int.MinValue))
+                    continue;
 
-                    if(_playerManager.PlayerCount > (preset.MaxPlayers ?? int.MaxValue))
-                        continue;
-                }
+                if(_playerManager.PlayerCount > (preset.MaxPlayers ?? int.MaxValue))
+                    continue;
 
                 presets[preset.ID] = preset.ModeTitle;
             }
