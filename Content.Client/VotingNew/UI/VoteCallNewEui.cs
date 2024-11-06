@@ -9,7 +9,7 @@ namespace Content.Client.VotingNew.UI;
 public sealed class VoteCallNewEui : BaseEui
 {
     private readonly VoteCallNewMenu _menu;
-    private PresetControl PresetButtons = new();
+    private readonly PresetControl _presetButtons = new();
     private Dictionary<string, string> _presets = new();
 
     public VoteCallNewEui()
@@ -21,13 +21,16 @@ public sealed class VoteCallNewEui : BaseEui
     private void VoteStartPressed(BaseButton.ButtonEventArgs obj)
     {
         var targetListButton =
-            PresetButtons.ButtonsList
+            _presetButtons.ButtonsList
                 .Where(x => x.Value.Pressed)
                 .Select(x => x.Key);
-        var targetList = string.Join(" ",
+
+        var targetList =
             _presets
                 .Where(x => targetListButton.Contains(x.Value))
-                .Select(x => x.Key));
+                .Select(x => x.Key)
+                .ToList();
+
         SendMessage(new VoteCallNewEuiMsg.DoVote
         {
             TargetPresetList = targetList,
@@ -36,8 +39,8 @@ public sealed class VoteCallNewEui : BaseEui
 
     private void SetPresetsList(List<string> presets)
     {
-        PresetButtons.Populate(presets);
-        _menu.PresetsContainer.AddChild(PresetButtons);
+        _presetButtons.Populate(presets);
+        _menu.PresetsContainer.AddChild(_presetButtons);
     }
 
     public override void HandleState(EuiStateBase state)

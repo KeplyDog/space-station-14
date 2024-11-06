@@ -3,7 +3,7 @@
   alias:
     - survival
   name: survival-title
-  showInVote: false # secret
+  showInVote: true # secret
   description: survival-description
   rules:
     - MeteorSwarmScheduler
@@ -19,7 +19,7 @@
     - junk
     - meteorhell
   name: kessler-syndrome-title
-  showInVote: false # secret
+  showInVote: true # secret
   description: kessler-syndrome-description
   rules:
     - KesslerSyndromeScheduler
@@ -33,7 +33,7 @@
   - all
   name: all-at-once-title
   description: all-at-once-description
-  showInVote: false
+  showInVote: true
   rules:
     - Nukeops
     - Traitor
@@ -53,7 +53,7 @@
   - punishment
   name: aller-at-once-title
   description: aller-at-once-description
-  showInVote: false #Please god dont do this
+  showInVote: true #Please god dont do this
   rules:
     - Nukeops
     - Traitor
@@ -74,7 +74,7 @@
   - extended
   - shittersafari
   name: extended-title
-  showInVote: false #2boring2vote
+  showInVote: true #2boring2vote
   description: extended-description
   rules:
   - BasicStationEventScheduler
@@ -88,10 +88,10 @@
   - greenshift
   - shittersafarideluxeedition
   name: greenshift-title
-  showInVote: false #4boring4vote
+  showInVote: true #4boring4vote
   description: greenshift-description
   rules:
-  - SpaceTrafficControlFriendlyEventScheduler 
+  - SpaceTrafficControlFriendlyEventScheduler
   - BasicRoundstartVariation
 
 - type: gamePreset
@@ -126,7 +126,7 @@
   showInVote: false #Admin Use
   description: secret-description
   rules:
-  - SpaceTrafficControlFriendlyEventScheduler 
+  - SpaceTrafficControlFriendlyEventScheduler
   - BasicRoundstartVariation
 
 - type: gamePreset
@@ -147,7 +147,7 @@
     - tator
   name: traitor-title
   description: traitor-description
-  showInVote: false
+  showInVote: true
   rules:
     - Traitor
     - SubGamemodesRule
@@ -164,7 +164,7 @@
   name: death-match-title
   description: death-match-description
   maxPlayers: 15
-  showInVote: true
+  showInVote: false
   supportedMaps: DeathMatchMapPool
   rules:
     - DeathMatch31
@@ -175,7 +175,7 @@
     - nukeops
   name: nukeops-title
   description: nukeops-description
-  showInVote: false
+  showInVote: true
   rules:
     - Nukeops
     - SubGamemodesRule
@@ -192,7 +192,7 @@
     - revolutionaries
   name: rev-title
   description: rev-description
-  showInVote: false
+  showInVote: true
   rules:
     - Revolutionary
     - SubGamemodesRule
@@ -211,7 +211,7 @@
   - zomber
   name: zombie-title
   description: zombie-description
-  showInVote: false
+  showInVote: true
   rules:
   - Zombie
   - BasicStationEventScheduler
@@ -227,7 +227,7 @@
   - meteombies
   name: zombieteors-title
   description: zombieteors-description
-  showInVote: false
+  showInVote: true
   rules:
   - Zombie
   - BasicStationEventScheduler

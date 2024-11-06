@@ -59,7 +59,8 @@ public sealed class VoteCallNewEui : BaseEui
                     break;
                 }
 
-                _consoleHost.RemoteExecuteCommand(Player, $"createvote Preset {doVote.TargetPresetList}");
+                var targetPresetList = string.Join(" ", doVote.TargetPresetList);
+                _consoleHost.RemoteExecuteCommand(Player, $"createvote Preset {targetPresetList}");
                 break;
         }
     }

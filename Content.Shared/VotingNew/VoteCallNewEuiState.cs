@@ -19,6 +19,6 @@ public static class VoteCallNewEuiMsg
     [Serializable, NetSerializable]
     public sealed class DoVote : EuiMessageBase
     {
-        public string TargetPresetList = "";
+        public List<string> TargetPresetList = new();
     }
 }
