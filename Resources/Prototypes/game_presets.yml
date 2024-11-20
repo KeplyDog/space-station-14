@@ -4,6 +4,7 @@
     - survival
   name: survival-title
   showInVote: true # secret
+  showInStandardVote: true
   description: survival-description
   rules:
     - MeteorSwarmScheduler
@@ -20,6 +21,7 @@
     - meteorhell
   name: kessler-syndrome-title
   showInVote: true # secret
+  showInStandardVote: false
   description: kessler-syndrome-description
   rules:
     - KesslerSyndromeScheduler
@@ -34,6 +36,7 @@
   name: all-at-once-title
   description: all-at-once-description
   showInVote: true
+  showInStandardVote: false
   rules:
     - Nukeops
     - Traitor
@@ -54,6 +57,7 @@
   name: aller-at-once-title
   description: aller-at-once-description
   showInVote: true #Please god dont do this
+  showInStandardVote: false
   rules:
     - Nukeops
     - Traitor
@@ -75,6 +79,7 @@
   - shittersafari
   name: extended-title
   showInVote: true #2boring2vote
+  showInStandardVote: true
   description: extended-description
   rules:
   - BasicStationEventScheduler
@@ -89,6 +94,7 @@
   - shittersafarideluxeedition
   name: greenshift-title
   showInVote: true #4boring4vote
+  showInStandardVote: false
   description: greenshift-description
   rules:
   - SpaceTrafficControlFriendlyEventScheduler
@@ -101,6 +107,7 @@
     - sekrit
   name: secret-title
   showInVote: true
+  showInStandardVote: true
   description: secret-description
   rules:
     - Secret
@@ -111,6 +118,7 @@
     - secretextended
   name: secret-title
   showInVote: false #Admin Use
+  showInStandardVote: false
   description: secret-description
   rules:
     - BasicStationEventScheduler
@@ -124,6 +132,7 @@
   - secretgreenshift
   name: secret-title
   showInVote: false #Admin Use
+  showInStandardVote: false
   description: secret-description
   rules:
   - SpaceTrafficControlFriendlyEventScheduler
@@ -136,6 +145,7 @@
   name: sandbox-title
   description: sandbox-description
   showInVote: false # Not suitable for use without admin intervention, since entity spamming can quickly crash a server
+  showInStandardVote: false
   maxPlayers: 5
   rules:
     - Sandbox
@@ -148,6 +158,7 @@
   name: traitor-title
   description: traitor-description
   showInVote: true
+  showInStandardVote: true
   rules:
     - Traitor
     - SubGamemodesRule
@@ -165,6 +176,7 @@
   description: death-match-description
   maxPlayers: 15
   showInVote: false
+  showInStandardVote: false
   supportedMaps: DeathMatchMapPool
   rules:
     - DeathMatch31
@@ -176,6 +188,7 @@
   name: nukeops-title
   description: nukeops-description
   showInVote: true
+  showInStandardVote: true
   rules:
     - Nukeops
     - SubGamemodesRule
@@ -193,6 +206,7 @@
   name: rev-title
   description: rev-description
   showInVote: true
+  showInStandardVote: true
   rules:
     - Revolutionary
     - SubGamemodesRule
@@ -212,6 +226,7 @@
   name: zombie-title
   description: zombie-description
   showInVote: true
+  showInStandardVote: true
   rules:
   - Zombie
   - BasicStationEventScheduler
@@ -228,6 +243,7 @@
   name: zombieteors-title
   description: zombieteors-description
   showInVote: true
+  showInStandardVote: false
   rules:
   - Zombie
   - BasicStationEventScheduler

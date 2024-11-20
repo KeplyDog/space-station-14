@@ -8,6 +8,7 @@ using Content.Server.GameTicking.Presets;
 using Content.Server.Maps;
 using Content.Server.Roles;
 using Content.Server.RoundEnd;
+using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Database;
@@ -218,14 +219,17 @@ namespace Content.Server.Voting.Managers
 
         private void CreatePresetVote(ICommonSession? initiator, string[]? args = null)
         {
-            var presets = GetGamePresets();
+            var presets = GetGamePresets(false);
             if (args is { Length: > 0 })
             {
                 var targetPresets = presets.Where(allPreset =>
                     args.Any(preset => preset == allPreset.Key))
                     .ToDictionary();
-                if (targetPresets.Count > 0)
-                    presets = targetPresets;
+                presets = targetPresets.Count > 0 ? targetPresets : GetGamePresets(true);
+            }
+            else
+            {
+                presets = GetGamePresets(true);
             }
 
             var alone = _playerManager.PlayerCount == 1 && initiator != null;
@@ -579,14 +583,18 @@ namespace Content.Server.Voting.Managers
             DirtyCanCallVoteAll();
         }
 
-        private Dictionary<string, string> GetGamePresets()
+        private Dictionary<string, string> GetGamePresets(bool standardVote)
         {
             var presets = new Dictionary<string, string>();
 
             foreach (var preset in _prototypeManager.EnumeratePrototypes<GamePresetPrototype>())
             {
-                if(!preset.ShowInVote)
-                    continue;
+                switch (standardVote)
+                {
+                    case true when !preset.ShowInStandardVote:
+                    case false when !preset.ShowInVote:
+                        continue;
+                }
 
                 if(_playerManager.PlayerCount < (preset.MinPlayers ?? int.MinValue))
                     continue;

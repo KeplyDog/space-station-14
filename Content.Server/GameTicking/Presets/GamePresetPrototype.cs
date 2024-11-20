@@ -1,4 +1,3 @@
-
 using Content.Server.Maps;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
@@ -26,6 +25,9 @@ namespace Content.Server.GameTicking.Presets
 
         [DataField("showInVote")]
         public bool ShowInVote;
+
+        [DataField("showInStandardVote")]
+        public bool ShowInStandardVote;
 
         [DataField("minPlayers")]
         public int? MinPlayers;
