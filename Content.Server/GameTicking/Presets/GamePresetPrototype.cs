@@ -29,6 +29,9 @@ namespace Content.Server.GameTicking.Presets
         [DataField("showInStandardVote")]
         public bool ShowInStandardVote;
 
+        [DataField("voteType")]
+        public string VoteType = "admin";
+
         [DataField("minPlayers")]
         public int? MinPlayers;
 

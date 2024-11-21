@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.Remoting;
 using Content.Client.Eui;
 using Content.Shared.Eui;
 using Content.Shared.VotingNew;
@@ -13,10 +14,12 @@ public sealed class VoteCallNewEui : BaseEui
 {
     private readonly VoteCallNewMenu _menu;
     private readonly PresetControl _presetButtons = new();
+
     private Dictionary<string, string> _presets = new();
+    private Dictionary<string, string> _presetsTypes = new();
     private Dictionary<Button, List<string>> _gameRulesPresets = new();
 
-    private Dictionary<int, CreateGameRulesPreset> AvailableGameRulesPresets = new()
+    private readonly Dictionary<int, CreateGameRulesPreset> _availableGameRulesPresets = new()
     {
     };
 
@@ -24,7 +27,6 @@ public sealed class VoteCallNewEui : BaseEui
     {
         _menu = new VoteCallNewMenu();
         _menu.VoteStartButton.OnPressed += VoteStartPressed;
-        SetGameRulesPresets();
         _menu.PresetsButton.OnItemSelected += PickGameRulesPreset;
     }
 
@@ -55,40 +57,35 @@ public sealed class VoteCallNewEui : BaseEui
 
     private void SetGameRulesPresets()
     {
-        List<string> standardPresets = new List<string>
-        {
-            "Zombie", "Revolutionary", "Nukeops", "Traitor", "Secret", "Extended", "AllAtOnce", "Survival",
-        };
+        var rdmPresets =
+            _presetsTypes
+                .Where(x => x.Value == "rdm")
+                .Select(x => x.Key)
+                .ToList();
 
-        AvailableGameRulesPresets.Add(0, new CreateGameRulesPreset("По умолчанию", standardPresets));
-        _menu.PresetsButton.AddItem(AvailableGameRulesPresets[0].Name, 0);
+        _availableGameRulesPresets.Add(0, new CreateGameRulesPreset("РДМ", rdmPresets));
+        _menu.PresetsButton.AddItem(_availableGameRulesPresets[0].Name, 0);
 
-        List<string> rdmPresets = new List<string>
-        {
-            "Zombie", "Revolutionary", "Nukeops", "AllAtOnce", "Survival",
-        };
+        var calmPresets =
+            _presetsTypes
+                .Where(x => x.Value == "calm")
+                .Select(x => x.Key)
+                .ToList();
 
-        AvailableGameRulesPresets.Add(1, new CreateGameRulesPreset("РДМ", rdmPresets));
-        _menu.PresetsButton.AddItem(AvailableGameRulesPresets[1].Name, 1);
-
-        List<string> calmPresets = new List<string>
-        {
-            "Extended", "Greenshift", "Traitor",
-        };
-
-        AvailableGameRulesPresets.Add(2, new CreateGameRulesPreset("Спокойный", calmPresets));
-        _menu.PresetsButton.AddItem(AvailableGameRulesPresets[2].Name, 2);
+        _availableGameRulesPresets.Add(1, new CreateGameRulesPreset("Спокойный", calmPresets));
+        _menu.PresetsButton.AddItem(_availableGameRulesPresets[1].Name, 1);
     }
 
     private void PickGameRulesPreset(OptionButton.ItemSelectedEventArgs obj)
     {
-        var presets = AvailableGameRulesPresets[obj.Id].GameRulesPresets;
+        _menu.PresetsButton.SelectId(obj.Id);
+
+        var presets = _availableGameRulesPresets[obj.Id].GameRulesPresets;
         foreach (var buttonPreset in _presetButtons.ButtonsList.Values)
         {
             buttonPreset.Pressed = presets.Any(x => _presets[x] == buttonPreset.Text);
         }
     }
-
 
     public override void HandleState(EuiStateBase state)
     {
@@ -98,6 +95,7 @@ public sealed class VoteCallNewEui : BaseEui
         }
 
         _presets = s.Presets;
+        _presetsTypes = s.PresetsTypes;
         SetPresetsList(s.Presets.Select(x => x.Value).ToList());
         SetGameRulesPresets();
     }

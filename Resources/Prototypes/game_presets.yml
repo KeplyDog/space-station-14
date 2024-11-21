@@ -5,6 +5,7 @@
   name: survival-title
   showInVote: true # secret
   showInStandardVote: true
+  voteType: rdm
   description: survival-description
   rules:
     - MeteorSwarmScheduler
@@ -22,6 +23,7 @@
   name: kessler-syndrome-title
   showInVote: true # secret
   showInStandardVote: false
+  voteType: rdm
   description: kessler-syndrome-description
   rules:
     - KesslerSyndromeScheduler
@@ -36,6 +38,7 @@
   name: all-at-once-title
   description: all-at-once-description
   showInVote: true
+  voteType: rdm
   showInStandardVote: false
   rules:
     - Nukeops
@@ -58,6 +61,7 @@
   description: aller-at-once-description
   showInVote: true #Please god dont do this
   showInStandardVote: false
+  voteType: rdm
   rules:
     - Nukeops
     - Traitor
@@ -80,6 +84,7 @@
   name: extended-title
   showInVote: true #2boring2vote
   showInStandardVote: true
+  voteType: calm
   description: extended-description
   rules:
   - BasicStationEventScheduler
@@ -95,6 +100,7 @@
   name: greenshift-title
   showInVote: true #4boring4vote
   showInStandardVote: false
+  voteType: calm
   description: greenshift-description
   rules:
   - SpaceTrafficControlFriendlyEventScheduler
@@ -108,6 +114,7 @@
   name: secret-title
   showInVote: true
   showInStandardVote: true
+  voteType: calm
   description: secret-description
   rules:
     - Secret
@@ -119,6 +126,7 @@
   name: secret-title
   showInVote: false #Admin Use
   showInStandardVote: false
+  voteType: admin
   description: secret-description
   rules:
     - BasicStationEventScheduler
@@ -133,6 +141,7 @@
   name: secret-title
   showInVote: false #Admin Use
   showInStandardVote: false
+  voteType: admin
   description: secret-description
   rules:
   - SpaceTrafficControlFriendlyEventScheduler
@@ -146,6 +155,7 @@
   description: sandbox-description
   showInVote: false # Not suitable for use without admin intervention, since entity spamming can quickly crash a server
   showInStandardVote: false
+  voteType: admin
   maxPlayers: 5
   rules:
     - Sandbox
@@ -159,6 +169,7 @@
   description: traitor-description
   showInVote: true
   showInStandardVote: true
+  voteType: calm
   rules:
     - Traitor
     - SubGamemodesRule
@@ -177,6 +188,7 @@
   maxPlayers: 15
   showInVote: false
   showInStandardVote: false
+  voteType: admin
   supportedMaps: DeathMatchMapPool
   rules:
     - DeathMatch31
@@ -189,6 +201,7 @@
   description: nukeops-description
   showInVote: true
   showInStandardVote: true
+  voteType: rdm
   rules:
     - Nukeops
     - SubGamemodesRule
@@ -207,6 +220,7 @@
   description: rev-description
   showInVote: true
   showInStandardVote: true
+  voteType: rdm
   rules:
     - Revolutionary
     - SubGamemodesRule
@@ -227,6 +241,7 @@
   description: zombie-description
   showInVote: true
   showInStandardVote: true
+  voteType: rdm
   rules:
   - Zombie
   - BasicStationEventScheduler
@@ -244,6 +259,7 @@
   description: zombieteors-description
   showInVote: true
   showInStandardVote: false
+  voteType: rdm
   rules:
   - Zombie
   - BasicStationEventScheduler

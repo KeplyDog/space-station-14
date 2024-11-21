@@ -30,6 +30,8 @@ public sealed class VoteCallNewEui : BaseEui
     public override EuiStateBase GetNewState()
     {
         Dictionary<string, string> presets = new();
+        Dictionary<string, string> presetsTypes = new();
+
         foreach (var preset in _prototypeManager.EnumeratePrototypes<GamePresetPrototype>())
         {
             if(!preset.ShowInVote)
@@ -42,8 +44,10 @@ public sealed class VoteCallNewEui : BaseEui
                 continue;
 
             presets[preset.ID] = Loc.GetString(preset.ModeTitle);
+            presetsTypes[preset.ID] = preset.VoteType;
         }
-        return new VoteCallNewEuiState(presets);
+
+        return new VoteCallNewEuiState(presets, presetsTypes);
     }
 
     public override void HandleMessage(EuiMessageBase msg)
