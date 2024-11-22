@@ -419,6 +419,7 @@ namespace Content.Server.Voting.Managers
             if (v.Cancelled)
                 return;
 
+            VoteStarted = false;
             v.Cancelled = true;
             v.Finished = true;
             v.Dirty = true;
