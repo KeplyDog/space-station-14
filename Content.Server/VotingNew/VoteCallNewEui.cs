@@ -37,7 +37,7 @@ public sealed class VoteCallNewEui : BaseEui
 
         foreach (var preset in _prototypeManager.EnumeratePrototypes<GamePresetPrototype>())
         {
-            if(!preset.ShowInVote)
+            if(!preset.ShowInAdminVote)
                 continue;
 
             if(_playerManager.PlayerCount < (preset.MinPlayers ?? int.MinValue))

@@ -23,11 +23,11 @@ namespace Content.Server.GameTicking.Presets
         [DataField("description")]
         public string Description = string.Empty;
 
+        [DataField("showInAdminVote")]
+        public bool ShowInAdminVote;
+
         [DataField("showInVote")]
         public bool ShowInVote;
-
-        [DataField("showInStandardVote")]
-        public bool ShowInStandardVote;
 
         [DataField("voteType")]
         public string VoteType = "admin";

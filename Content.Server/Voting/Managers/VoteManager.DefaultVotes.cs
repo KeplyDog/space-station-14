@@ -599,8 +599,8 @@ namespace Content.Server.Voting.Managers
             {
                 switch (standardVote)
                 {
-                    case true when !preset.ShowInStandardVote:
-                    case false when !preset.ShowInVote:
+                    case true when !preset.ShowInVote:
+                    case false when !preset.ShowInAdminVote:
                         continue;
                 }
 

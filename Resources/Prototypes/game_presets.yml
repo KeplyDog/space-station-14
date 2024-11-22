@@ -3,8 +3,8 @@
   alias:
     - survival
   name: survival-title
-  showInVote: true # secret
-  showInStandardVote: true
+  showInAdminVote: true # secret
+  showInVote: true
   voteType: rdm
   description: survival-description
   rules:
@@ -21,8 +21,8 @@
     - junk
     - meteorhell
   name: kessler-syndrome-title
-  showInVote: true # secret
-  showInStandardVote: false
+  showInAdminVote: true # secret
+  showInVote: false
   voteType: admin
   description: kessler-syndrome-description
   rules:
@@ -37,9 +37,9 @@
   - all
   name: all-at-once-title
   description: all-at-once-description
-  showInVote: true
+  showInAdminVote: true
   voteType: rdm
-  showInStandardVote: false
+  showInVote: false
   rules:
     - Nukeops
     - Traitor
@@ -59,8 +59,8 @@
   - punishment
   name: aller-at-once-title
   description: aller-at-once-description
-  showInVote: true #Please god dont do this
-  showInStandardVote: false
+  showInAdminVote: true #Please god dont do this
+  showInVote: false
   voteType: admin
   rules:
     - Nukeops
@@ -82,8 +82,8 @@
   - extended
   - shittersafari
   name: extended-title
-  showInVote: true #2boring2vote
-  showInStandardVote: true
+  showInAdminVote: true #2boring2vote
+  showInVote: true
   voteType: calm
   description: extended-description
   rules:
@@ -98,8 +98,8 @@
   - greenshift
   - shittersafarideluxeedition
   name: greenshift-title
-  showInVote: true #4boring4vote
-  showInStandardVote: false
+  showInAdminVote: true #4boring4vote
+  showInVote: false
   voteType: admin
   description: greenshift-description
   rules:
@@ -112,8 +112,8 @@
     - secret
     - sekrit
   name: secret-title
+  showInAdminVote: true
   showInVote: true
-  showInStandardVote: true
   voteType: calm
   description: secret-description
   rules:
@@ -124,8 +124,8 @@
   alias:
     - secretextended
   name: secret-title
-  showInVote: false #Admin Use
-  showInStandardVote: false
+  showInAdminVote: false #Admin Use
+  showInVote: false
   voteType: admin
   description: secret-description
   rules:
@@ -139,8 +139,8 @@
   alias:
   - secretgreenshift
   name: secret-title
-  showInVote: false #Admin Use
-  showInStandardVote: false
+  showInAdminVote: false #Admin Use
+  showInVote: false
   voteType: admin
   description: secret-description
   rules:
@@ -153,8 +153,8 @@
     - sandbox
   name: sandbox-title
   description: sandbox-description
-  showInVote: false # Not suitable for use without admin intervention, since entity spamming can quickly crash a server
-  showInStandardVote: false
+  showInAdminVote: false # Not suitable for use without admin intervention, since entity spamming can quickly crash a server
+  showInVote: false
   voteType: admin
   maxPlayers: 5
   rules:
@@ -167,8 +167,8 @@
     - tator
   name: traitor-title
   description: traitor-description
+  showInAdminVote: true
   showInVote: true
-  showInStandardVote: true
   voteType: calm
   rules:
     - Traitor
@@ -186,8 +186,8 @@
   name: death-match-title
   description: death-match-description
   maxPlayers: 15
+  showInAdminVote: false
   showInVote: false
-  showInStandardVote: false
   voteType: admin
   supportedMaps: DeathMatchMapPool
   rules:
@@ -199,8 +199,8 @@
     - nukeops
   name: nukeops-title
   description: nukeops-description
+  showInAdminVote: true
   showInVote: true
-  showInStandardVote: true
   voteType: rdm
   rules:
     - Nukeops
@@ -218,8 +218,8 @@
     - revolutionaries
   name: rev-title
   description: rev-description
+  showInAdminVote: true
   showInVote: true
-  showInStandardVote: true
   voteType: rdm
   rules:
     - Revolutionary
@@ -239,8 +239,8 @@
   - zomber
   name: zombie-title
   description: zombie-description
+  showInAdminVote: true
   showInVote: true
-  showInStandardVote: true
   voteType: rdm
   rules:
   - Zombie
@@ -257,8 +257,8 @@
   - meteombies
   name: zombieteors-title
   description: zombieteors-description
-  showInVote: true
-  showInStandardVote: false
+  showInAdminVote: true
+  showInVote: false
   voteType: admin
   rules:
   - Zombie
