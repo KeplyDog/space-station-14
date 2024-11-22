@@ -23,7 +23,7 @@
   name: kessler-syndrome-title
   showInVote: true # secret
   showInStandardVote: false
-  voteType: rdm
+  voteType: admin
   description: kessler-syndrome-description
   rules:
     - KesslerSyndromeScheduler
@@ -61,7 +61,7 @@
   description: aller-at-once-description
   showInVote: true #Please god dont do this
   showInStandardVote: false
-  voteType: rdm
+  voteType: admin
   rules:
     - Nukeops
     - Traitor
@@ -100,7 +100,7 @@
   name: greenshift-title
   showInVote: true #4boring4vote
   showInStandardVote: false
-  voteType: calm
+  voteType: admin
   description: greenshift-description
   rules:
   - SpaceTrafficControlFriendlyEventScheduler
@@ -259,7 +259,7 @@
   description: zombieteors-description
   showInVote: true
   showInStandardVote: false
-  voteType: rdm
+  voteType: admin
   rules:
   - Zombie
   - BasicStationEventScheduler

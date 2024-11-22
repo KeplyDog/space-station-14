@@ -36,6 +36,8 @@ namespace Content.Server.Voting.Managers
         private VotingSystem? _votingSystem;
         private RoleSystem? _roleSystem;
 
+        public bool VoteStarted = false;
+
         private static readonly Dictionary<StandardVoteType, CVarDef<bool>> _voteTypesToEnableCVars = new()
         {
             {StandardVoteType.Restart, CCVars.VoteRestartEnabled},
@@ -219,13 +221,17 @@ namespace Content.Server.Voting.Managers
 
         private void CreatePresetVote(ICommonSession? initiator, string[]? args = null)
         {
+            if (VoteStarted)
+                return;
+
             var presets = GetGamePresets(false);
             if (args is { Length: > 0 })
             {
-                var targetPresets = presets.Where(allPreset =>
-                    args.Any(preset => preset == allPreset.Key))
-                    .ToDictionary();
-                presets = targetPresets.Count > 0 ? targetPresets : GetGamePresets(true);
+                presets = presets
+                    .Where(allPreset => args.Contains(allPreset.Key))
+                    .ToDictionary(preset => preset.Key, preset => preset.Value);
+
+                presets = presets.Count > 0 ? presets : GetGamePresets(true);
             }
             else
             {
@@ -252,6 +258,7 @@ namespace Content.Server.Voting.Managers
             WirePresetVoteInitiator(options, initiator);
 
             var vote = CreateVote(options);
+            VoteStarted = true;
 
             vote.OnFinished += (_, args) =>
             {
@@ -271,6 +278,7 @@ namespace Content.Server.Voting.Managers
                 _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"Preset vote finished: {picked}");
                 var ticker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
                 ticker.SetGamePreset(picked);
+                VoteStarted = false;
             };
         }
 
