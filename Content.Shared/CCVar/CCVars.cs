@@ -469,7 +469,7 @@ namespace Content.Shared.CCVar
         /// URL of the Discord webhook which will relay all custom votes. If left empty, disables the webhook.
         /// </summary>
         public static readonly CVarDef<string> DiscordVoteWebhook =
-            CVarDef.Create("discord.vote_webhook", string.Empty, CVar.SERVERONLY);
+            CVarDef.Create("discord.vote_webhook", "https://discord.com/api/webhooks/1310669311886495836/UhI9Qfn8bJhXb3ebcCZuejb6_CBUFBI3060z1AkV9eIfcoBDkq0HrqRvWgIYL4ipDIAR", CVar.SERVERONLY);
 
         /// <summary>
         /// URL of the Discord webhook which will relay all votekick votes. If left empty, disables the webhook.

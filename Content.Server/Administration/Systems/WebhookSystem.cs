@@ -2,10 +2,10 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using Content.Server.Database;
 using Content.Server.Discord;
-using Content.Server.Discord.WebhookMessages;
 using Content.Shared.CCVar;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
+using Robust.Shared.Enums;
 using Robust.Shared.Player;
 
 namespace Content.Server.Administration.Systems;
@@ -28,6 +28,10 @@ public sealed class WebhookSystem : EntitySystem
 
     private async void PlayerStatusChanged(object? sender, SessionStatusEventArgs args)
     {
+        if (args.NewStatus != SessionStatus.Connected)
+        {
+            return;
+        }
 
         var record = await _db.GetPlayerRecordByUserId(args.Session.UserId);
         var firstConnection = record != null &&
@@ -40,50 +44,62 @@ public sealed class WebhookSystem : EntitySystem
     }
 
     private async void CreateMessage(ICommonSession session)
+    {
+        var uid = session.UserId;
+        var name = session.Name;
+
+        var payload = new WebhookPayload()
         {
-            var uid = session.UserId;
-            var name = session.Name;
-
-            var payload = new WebhookPayload()
+            Username = "KeplyBot",
+            Embeds = new List<WebhookEmbed>
             {
-                Username = "KeplyBot",
-                Embeds = new List<WebhookEmbed>
+                new()
                 {
-                    new()
+                    Title = "Arrived new player",
+                    Color = 13438992, // #CD1010
+                    Description = $"Arrived new player",
+                    Footer = new WebhookEmbedFooter
                     {
-                        Title = "Arrived new player",
-                        Color = 13438992, // #CD1010
-                        Description = $"Arrived new player",
-                        Footer = new WebhookEmbedFooter
-                        {
-                            Text = $"Name: {name} \n" +
-                                   $"NUID: {uid}",
-                        },
+                        Text = $"Name: {name} \n" +
+                               $"NUID: {uid}",
                     },
-                }
-            };
-
-            var state = new VoteWebhooks.WebhookState
-            {
-                WebhookUrl = _cfg.GetCVar(CCVars.DiscordVotekickWebhook),
-                Payload = payload,
-            };
-
-            try
-            {
-                if (await _discord.GetWebhook(state.WebhookUrl) is not { } identifier)
-                    return;
-
-                state.Identifier = identifier.ToIdentifier();
-                _sawmill.Debug(JsonSerializer.Serialize(payload));
-
-                var request = await _discord.CreateMessage(identifier.ToIdentifier(), payload);
-                var content = await request.Content.ReadAsStringAsync();
-                state.MessageId = ulong.Parse(JsonNode.Parse(content)?["id"]!.GetValue<string>()!);
+                },
             }
-            catch (Exception e)
-            {
-                _sawmill.Error($"Error while sending newPlayer webhook to Discord: {e}");
-            }
+        };
+
+        var state = new WebhookState
+        {
+            WebhookUrl = _cfg.GetCVar(CCVars.DiscordNewPlayerWebhook),
+            Payload = payload,
+        };
+
+        CreateWebhookMessage(state, payload);
+    }
+
+    private async void CreateWebhookMessage(WebhookState state, WebhookPayload payload)
+    {
+        try
+        {
+            _sawmill = Logger.GetSawmill("discord");
+
+            if (await _discord.GetWebhook(state.WebhookUrl) is not { } identifier)
+                return;
+
+            state.Identifier = identifier.ToIdentifier();
+            _sawmill.Debug(JsonSerializer.Serialize(payload));
+
+            await _discord.CreateMessage(identifier.ToIdentifier(), payload);
         }
+        catch (Exception e)
+        {
+            _sawmill.Error($"Error while sending newPlayer webhook to Discord: {e}");
+        }
+    }
+
+    public sealed class WebhookState
+    {
+        public required string WebhookUrl;
+        public required WebhookPayload Payload;
+        public WebhookIdentifier Identifier;
+    }
 }
