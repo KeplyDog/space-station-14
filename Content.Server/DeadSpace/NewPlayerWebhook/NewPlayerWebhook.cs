@@ -37,17 +37,24 @@ public sealed class NewPlayerWebhook : EntitySystem
         var firstConnection = record != null &&
                               Math.Abs((record.FirstSeenTime - record.LastSeenTime).TotalMinutes) < 1;
 
-        if (firstConnection)
+        if (firstConnection && record != null)
         {
-            CreateMessage(args.Session);
+            CreateMessage(record);
         }
     }
 
-    private async void CreateMessage(ICommonSession session)
+    private async void CreateMessage(PlayerRecord record)
     {
-        var uid = session.UserId;
-        var name = session.Name;
-        var hwid = session;
+        var hwid = record.HWId?.Length > 0 ? record.HWId.ToString() : "Unknown";
+
+        var fields = new List<WebhookEmbedField>
+        {
+            new() { Name = "Name", Value = ProfileUrl(record.LastSeenUserName, record.UserId.ToString()), Inline = false },
+            new() { Name = "UserId", Value = ProfileUrl(record.UserId.ToString(), record.UserId.ToString()), Inline = false },
+            new() { Name = "Address", Value = ProfileUrl(record.LastSeenAddress.ToString(), record.UserId.ToString()), Inline = false },
+            new() { Name = "HWId", Value = ProfileUrl(hwid, record.UserId.ToString()), Inline = false },
+        };
+
         var serverName = _cfg.GetCVar(CVars.GameHostName);
 
         serverName = serverName[..Math.Min(serverName.Length, 1500)];
@@ -62,13 +69,9 @@ public sealed class NewPlayerWebhook : EntitySystem
                     Title = "Arrived new player",
                     Color = 13438992, // #CD1010
                     Description = $"Arrived new player",
-                    Footer = new WebhookEmbedFooter
-                    {
-                        Text = $"Name: {name} \n" +
-                               $"NUID: {uid}",
-                    },
+                    Fields = fields,
                 },
-            }
+            },
         };
 
         var state = new WebhookState
@@ -100,10 +103,15 @@ public sealed class NewPlayerWebhook : EntitySystem
         }
     }
 
-    public sealed class WebhookState
+    private sealed class WebhookState
     {
         public required string WebhookUrl;
         public required WebhookPayload Payload;
         public WebhookIdentifier Identifier;
+    }
+
+    private string ProfileUrl(string? value, string uid)
+    {
+        return $"[{value}](https://admin.deadspace14.net/Players/Info/{uid})";
     }
 }
