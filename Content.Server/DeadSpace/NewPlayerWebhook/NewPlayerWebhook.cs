@@ -1,16 +1,16 @@
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using Content.Server.Database;
 using Content.Server.Discord;
 using Content.Shared.CCVar;
 using Robust.Server.Player;
+using Robust.Shared;
 using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Player;
 
-namespace Content.Server.Administration.Systems;
+namespace Content.Server.DeadSpace.NewPlayerWebhook;
 
-public sealed class WebhookSystem : EntitySystem
+public sealed class NewPlayerWebhook : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly DiscordWebhook _discord = default!;
@@ -47,10 +47,14 @@ public sealed class WebhookSystem : EntitySystem
     {
         var uid = session.UserId;
         var name = session.Name;
+        var hwid = session;
+        var serverName = _cfg.GetCVar(CVars.GameHostName);
+
+        serverName = serverName[..Math.Min(serverName.Length, 1500)];
 
         var payload = new WebhookPayload()
         {
-            Username = "KeplyBot",
+            Username = serverName,
             Embeds = new List<WebhookEmbed>
             {
                 new()
