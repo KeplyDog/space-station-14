@@ -45,6 +45,13 @@ public sealed class NewPlayerWebhook : EntitySystem
 
     private async void CreateMessage(PlayerRecord record)
     {
+        var url = _cfg.GetCVar(CCVars.DiscordNewPlayerWebhook);
+
+        if (url == string.Empty)
+        {
+            return;
+        }
+
         var hwid = record.HWId?.Length > 0 ? record.HWId.ToString() : "Unknown";
 
         var fields = new List<WebhookEmbedField>
@@ -54,7 +61,6 @@ public sealed class NewPlayerWebhook : EntitySystem
             new() { Name = "Address", Value = ProfileUrl(record.LastSeenAddress.ToString(), record.UserId.ToString()), Inline = false },
             new() { Name = "HWId", Value = ProfileUrl(hwid, record.UserId.ToString()), Inline = false },
         };
-
         var serverName = _cfg.GetCVar(CVars.GameHostName);
 
         serverName = serverName[..Math.Min(serverName.Length, 1500)];
@@ -76,7 +82,7 @@ public sealed class NewPlayerWebhook : EntitySystem
 
         var state = new WebhookState
         {
-            WebhookUrl = _cfg.GetCVar(CCVars.DiscordNewPlayerWebhook),
+            WebhookUrl = url,
             Payload = payload,
         };
 
