@@ -47,7 +47,7 @@ public sealed class NewPlayerWebhook : EntitySystem
     {
         var url = _cfg.GetCVar(CCVars.DiscordNewPlayerWebhook);
 
-        if (url == string.Empty)
+        if (!string.IsNullOrEmpty(url))
         {
             return;
         }
