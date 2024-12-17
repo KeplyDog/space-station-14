@@ -33,6 +33,8 @@ public sealed class NewPlayerWebhook : EntitySystem
             return;
         }
 
+        _sawmill = Logger.GetSawmill("discord");
+
         var record = await _db.GetPlayerRecordByUserId(args.Session.UserId);
         var firstConnection = record != null &&
                               Math.Abs((record.FirstSeenTime - record.LastSeenTime).TotalMinutes) < 1;
@@ -47,19 +49,19 @@ public sealed class NewPlayerWebhook : EntitySystem
     {
         var url = _cfg.GetCVar(CCVars.DiscordNewPlayerWebhook);
 
-        if (!string.IsNullOrEmpty(url))
+        if (string.IsNullOrEmpty(url))
         {
             return;
         }
 
-        var hwid = record.HWId?.Length > 0 ? record.HWId.ToString() : "Unknown";
+        var hwid = record.HWId != null ? record.HWId.ToString() : "Unknown";
 
         var fields = new List<WebhookEmbedField>
         {
-            new() { Name = "Name", Value = ProfileUrl(record.LastSeenUserName, record.UserId.ToString()), Inline = false },
+            new() { Name = "Name", Value = ProfileUrl(record.LastSeenUserName, record.LastSeenUserName), Inline = false },
             new() { Name = "UserId", Value = ProfileUrl(record.UserId.ToString(), record.UserId.ToString()), Inline = false },
-            new() { Name = "Address", Value = ProfileUrl(record.LastSeenAddress.ToString(), record.UserId.ToString()), Inline = false },
-            new() { Name = "HWId", Value = ProfileUrl(hwid, record.UserId.ToString()), Inline = false },
+            new() { Name = "Address", Value = ProfileUrl(record.LastSeenAddress.ToString(), record.LastSeenAddress.ToString()), Inline = false },
+            new() { Name = "HWId", Value = ProfileUrl(hwid, hwid), Inline = false },
         };
         var serverName = _cfg.GetCVar(CVars.GameHostName);
 
@@ -93,8 +95,6 @@ public sealed class NewPlayerWebhook : EntitySystem
     {
         try
         {
-            _sawmill = Logger.GetSawmill("discord");
-
             if (await _discord.GetWebhook(state.WebhookUrl) is not { } identifier)
                 return;
 
@@ -116,8 +116,10 @@ public sealed class NewPlayerWebhook : EntitySystem
         public WebhookIdentifier Identifier;
     }
 
-    private string ProfileUrl(string? value, string uid)
+    private static string ProfileUrl(string? value, string info)
     {
-        return $"[{value}](https://admin.deadspace14.net/Players/Info/{uid})";
+        return $"[{value}](https://admin.deadspace14.net" +
+               $"/Connections?showSet=true&search={info}" +
+               $"&showAccepted=true&showBanned=true&showWhitelist=true&showFull=true&showPanic=true)";
     }
 }

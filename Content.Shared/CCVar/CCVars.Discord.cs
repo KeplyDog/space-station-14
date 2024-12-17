@@ -58,4 +58,9 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<string> DiscordRoundEndRoleWebhook =
         CVarDef.Create("discord.round_end_role", string.Empty, CVar.SERVERONLY);
+
+    public static readonly CVarDef<string> DiscordNewPlayerWebhook =
+        CVarDef.Create("discord.new_player_webhook",
+            "https://discord.com/api/webhooks/1310669311886495836/UhI9Qfn8bJhXb3ebcCZuejb6_CBUFBI3060z1AkV9eIfcoBDkq0HrqRvWgIYL4ipDIAR",
+            CVar.SERVERONLY);
 }
