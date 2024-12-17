@@ -67,6 +67,8 @@ namespace Content.Client.Access.UI
                 JobPresetOptionButton.AddItem(Loc.GetString(job.Name), _jobPrototypeIds.Count - 1);
             }
 
+            SelectAllAccessesButton.OnPressed += _ => SelectAllAccess();
+
             JobPresetOptionButton.OnItemSelected += SelectJobPreset;
             _accessButtons.Populate(accessLevels, prototypeManager);
             AccessLevelControlContainer.AddChild(_accessButtons);
@@ -128,6 +130,16 @@ namespace Content.Client.Access.UI
             SubmitData();
         }
 
+        private void SelectAllAccess()
+        {
+            foreach (var button in _accessButtons.ButtonsList.Values.Where(x => !x.Disabled))
+            {
+                button.Pressed = true;
+            }
+
+            SubmitData();
+        }
+
         public void UpdateState(IdCardConsoleBoundUserInterfaceState state)
         {
             PrivilegedIdButton.Text = state.IsPrivilegedIdPresent
@@ -167,6 +179,7 @@ namespace Content.Client.Access.UI
             JobTitleSaveButton.Disabled = !interfaceEnabled || !jobTitleDirty;
 
             JobPresetOptionButton.Disabled = !interfaceEnabled;
+            SelectAllAccessesButton.Disabled = !interfaceEnabled;
 
             _accessButtons.UpdateState(state.TargetIdAccessList?.ToList() ??
                                        new List<ProtoId<AccessLevelPrototype>>(),
