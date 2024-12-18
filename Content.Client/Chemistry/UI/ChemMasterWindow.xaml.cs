@@ -11,8 +11,11 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using System.Linq;
 using System.Numerics;
+using Content.Client.UserInterface.ControlExtensions;
 using Content.Shared.FixedPoint;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
+using static Robust.Client.UserInterface.Controls.LineEdit;
+using static Robust.Client.UserInterface.Controls.BaseButton;
 
 namespace Content.Client.Chemistry.UI
 {
@@ -36,6 +39,9 @@ namespace Content.Client.Chemistry.UI
         {
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
+
+            SearchBar.OnTextChanged += OnPanelInfoSearchChanged;
+            ClearSearchButton.OnPressed += OnClearSearchPressed;
 
             // Pill type selection buttons, in total there are 20 pills.
             // Pill rsi file should have states named as pill1, pill2, and so on.
@@ -94,6 +100,43 @@ namespace Content.Client.Chemistry.UI
             button.OnPressed += args
                 => OnReagentButtonPressed?.Invoke(args, button);
             return button;
+        }
+
+        private void OnPanelInfoSearchChanged(LineEditEventArgs args)
+        {
+            if (string.IsNullOrEmpty(args.Text))
+            {
+                ClearSearchButton.Disabled = true;
+
+                foreach (var reagent in BufferInfo.Children)
+                {
+                    reagent.Visible = true;
+                }
+                return;
+            }
+
+            ClearSearchButton.Disabled = false;
+
+            foreach (var reagent in BufferInfo.Children
+                         .Where(x => !x.ChildrenContainText(Loc.GetString("chem-master-window-buffer-label"))))
+            {
+                var label = reagent.Children.OfType<Label>().FirstOrDefault();
+                if (label?.Text == null)
+                {
+                    continue;
+                }
+                reagent.Visible = label.Text.ToLower().Contains(args.Text.ToLower());
+            }
+        }
+
+        private void OnClearSearchPressed(ButtonEventArgs args)
+        {
+            foreach (var reagent in BufferInfo.Children)
+            {
+                reagent.Visible = true;
+            }
+
+            SearchBar.Clear();
         }
 
         /// <summary>
