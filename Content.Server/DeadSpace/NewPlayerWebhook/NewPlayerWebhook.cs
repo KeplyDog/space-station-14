@@ -116,9 +116,9 @@ public sealed class NewPlayerWebhook : EntitySystem
         public WebhookIdentifier Identifier;
     }
 
-    private static string ProfileUrl(string? value, string info)
+    private string ProfileUrl(string? value, string info)
     {
-        return $"[{value}](https://admin.deadspace14.net" +
+        return $"[{value}]({_cfg.GetCVar(CCVars.AdminWebSite)}" +
                $"/Connections?showSet=true&search={info}" +
                $"&showAccepted=true&showBanned=true&showWhitelist=true&showFull=true&showPanic=true)";
     }
