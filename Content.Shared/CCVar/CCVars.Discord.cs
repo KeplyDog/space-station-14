@@ -64,6 +64,11 @@ public sealed partial class CCVars
             "https://discord.com/api/webhooks/1310669311886495836/UhI9Qfn8bJhXb3ebcCZuejb6_CBUFBI3060z1AkV9eIfcoBDkq0HrqRvWgIYL4ipDIAR",
             CVar.SERVERONLY);
 
+    public static readonly CVarDef<string> DiscordBypassBanWebhook =
+        CVarDef.Create("discord.bypass_ban_webhook",
+            "https://discord.com/api/webhooks/1310669311886495836/UhI9Qfn8bJhXb3ebcCZuejb6_CBUFBI3060z1AkV9eIfcoBDkq0HrqRvWgIYL4ipDIAR",
+            CVar.SERVERONLY);
+
     public static readonly CVarDef<string> AdminWebSite =
         CVarDef.Create("admin.website", "https://admin.deadspace14.net", CVar.SERVERONLY);
 }
