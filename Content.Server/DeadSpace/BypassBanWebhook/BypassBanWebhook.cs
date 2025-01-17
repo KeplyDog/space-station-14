@@ -34,25 +34,31 @@ public sealed class BypassBanWebhook : EntitySystem
     {
         _sawmill = Logger.GetSawmill("discord");
 
-        var banList = await _db.GetServerBansAsync(null, e.UserId, null, null);
+        var banList = await _db.GetServerBansAsync(null, e.UserId, null, null, false);
 
-        if (banList.Count > 0)
+        var infoHwid =
+            e.UserData.ModernHWIds == null
+                ? Convert.ToBase64String(e.UserData.HWId.AsSpan())
+                : $"V2-{Convert.ToBase64String(e.UserData.ModernHWIds.First().AsSpan())}";
+
+        if (banList.Any(x => x.HWId == null || infoHwid == x.HWId.Hwid.ToString()) && banList.Count > 0)
         {
             return;
         }
 
-        banList = await _db.GetServerBansAsync(e.IP.Address, null, null, null);
+        banList = await _db.GetServerBansAsync(e.IP.Address, null, null, null, false);
         var infoIp = banList.Count > 0 ? e.IP.Address.ToString() : null;
 
-        banList = await _db.GetServerBansAsync(null, null, e.UserData.HWId, e.UserData.ModernHWIds);
+        banList = await _db.GetServerBansAsync(null, null, e.UserData.HWId, e.UserData.ModernHWIds, false);
 
-        var infoHwid = banList.Count > 0
-            ? e.UserData.HWId == null
-                ? $"V2-{Convert.ToBase64String(e.UserData.ModernHWIds.First().AsSpan())}"
-                : Convert.ToBase64String(e.UserData.HWId.AsSpan())
+        infoHwid = banList.Count > 0
+            ? infoHwid
             : null;
 
-        CreateMessage(infoIp, infoHwid);
+        if (infoIp != null || infoHwid != null)
+        {
+            CreateMessage(infoIp, infoHwid);
+        }
     }
 
     private async void CreateMessage(string? infoIp, string? infoHwid)
