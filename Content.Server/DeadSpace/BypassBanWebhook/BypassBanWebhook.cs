@@ -149,14 +149,10 @@ public sealed class BypassBanWebhook : EntitySystem
         {
             return $"V2-{Convert.ToBase64String(modernHwids.First().AsSpan())}";
         }
-        else
+        if (hwid != null && hwid.Length > 0)
         {
-            if (hwid != null && hwid.Length > 0)
-            {
-                return Convert.ToBase64String(hwid.AsSpan());
-            }
+            return Convert.ToBase64String(hwid.AsSpan());
         }
-
         return null;
     }
 }
