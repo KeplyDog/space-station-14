@@ -40,26 +40,18 @@ public sealed class BypassBanWebhook : EntitySystem
 
         var hwid = e.UserData.HWId;
         var modernHwids = e.UserData.ModernHWIds;
-        var infoHwid = GetHwid(hwid, modernHwids);
         var ip = e.IP.Address;
         var userId = e.UserId;
 
         var banList = await _db.GetServerBansAsync(ip, null, null, null, false);
-        var infoIp = banList.Count > 0 ? ip.ToString() : null;
 
         // Проверка, имеются ли баны с текущим айпи на других аккаунтах
-        if (banList.All(x => x.UserId == userId))
-        {
-            infoIp = null;
-        }
+        var infoIp = banList.All(x => x.UserId == userId) ? null : ip.ToString();
 
         banList = await _db.GetServerBansAsync(null, null, hwid, modernHwids, false);
 
         // Проверка, имеются ли баны с текущим хвид на других аккаунтах
-        if (banList.All(x => x.UserId == userId))
-        {
-            infoHwid = null;
-        }
+        var infoHwid = banList.All(x => x.UserId == userId) ? null : GetHwid(hwid, modernHwids);
 
         if (infoIp != null || infoHwid != null)
         {
