@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -29,46 +30,25 @@ public sealed class BypassBanWebhook : EntitySystem
         _netMgr.Connecting += NetMgrOnConnecting;
     }
 
+    /* если есть бан с текущим айпи и другим сикеем - обход
+     если есть бан с текущим хвид и другим сикеем - обход
+     если с текущим сикеем есть бан на другом айпи или хвид - не обход */
+
     private async Task NetMgrOnConnecting(NetConnectingArgs e)
     {
         _sawmill = Logger.GetSawmill("discord");
 
-        var banList = await _db.GetServerBansAsync(null, e.UserId, null, null, false);
-
-        var infoHwid = "null";
         var hwid = e.UserData.HWId;
         var modernHwids = e.UserData.ModernHWIds;
+        var infoHwid = GetHwid(hwid, modernHwids);
         var ip = e.IP.Address;
         var userId = e.UserId;
 
-        if (modernHwids != null && modernHwids.Length > 0)
-        {
-            infoHwid = $"V2-{Convert.ToBase64String(modernHwids.First().AsSpan())}";
-        }
-        else
-        {
-            if (hwid != null && hwid.Length > 0)
-            {
-                Convert.ToBase64String(hwid.AsSpan());
-            }
-        }
-
-        // Проверка на то, есть ли баны с этим же сикеем не на текущем устройстве
-        if (!banList.Any(x =>
-                (x.HWId == null || infoHwid != x.HWId.Hwid.ToString()) &&
-                (x.Address == null || !Equals(ip, x.Address.Value.address)) &&
-                banList.Count > 0))
-        {
-            return;
-        }
-
-        banList = await _db.GetServerBansAsync(ip, null, null, null, false);
+        var banList = await _db.GetServerBansAsync(ip, null, null, null, false);
         var infoIp = banList.Count > 0 ? ip.ToString() : null;
 
         // Проверка, имеются ли баны с текущим айпи на других аккаунтах
-        if (!banList.Any(x =>
-                (x.UserId != userId) &&
-                banList.Count > 0))
+        if (banList.All(x => x.UserId == userId))
         {
             infoIp = null;
         }
@@ -76,10 +56,7 @@ public sealed class BypassBanWebhook : EntitySystem
         banList = await _db.GetServerBansAsync(null, null, hwid, modernHwids, false);
 
         // Проверка, имеются ли баны с текущим хвид на других аккаунтах
-        if (!banList.Any(x =>
-                (x.UserId != userId) &&
-                banList.Count > 0) ||
-            banList.Count > 0)
+        if (banList.All(x => x.UserId == userId))
         {
             infoHwid = null;
         }
@@ -172,5 +149,22 @@ public sealed class BypassBanWebhook : EntitySystem
         return $"[{value}]({_cfg.GetCVar(CCVars.AdminWebSite)}" +
                $"/Connections?showSet=true&search={info}" +
                $"&showAccepted=true&showBanned=true&showWhitelist=true&showFull=true&showPanic=true)";
+    }
+
+    private string? GetHwid(ImmutableArray<byte> hwid, ImmutableArray<ImmutableArray<byte>> modernHwids)
+    {
+        if (modernHwids != null && modernHwids.Length > 0)
+        {
+            return $"V2-{Convert.ToBase64String(modernHwids.First().AsSpan())}";
+        }
+        else
+        {
+            if (hwid != null && hwid.Length > 0)
+            {
+                return Convert.ToBase64String(hwid.AsSpan());
+            }
+        }
+
+        return null;
     }
 }
