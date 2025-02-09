@@ -36,43 +36,48 @@ public sealed class BypassBanWebhook : EntitySystem
         var banList = await _db.GetServerBansAsync(null, e.UserId, null, null, false);
 
         var infoHwid = "null";
-        if (e.UserData.ModernHWIds != null && e.UserData.ModernHWIds.Length > 0)
+        var hwid = e.UserData.HWId;
+        var modernHwids = e.UserData.ModernHWIds;
+        var ip = e.IP.Address;
+        var userId = e.UserId;
+
+        if (modernHwids != null && modernHwids.Length > 0)
         {
-            infoHwid = $"V2-{Convert.ToBase64String(e.UserData.ModernHWIds.First().AsSpan())}";
+            infoHwid = $"V2-{Convert.ToBase64String(modernHwids.First().AsSpan())}";
         }
         else
         {
-            if (e.UserData.HWId != null && e.UserData.HWId.Length > 0)
+            if (hwid != null && hwid.Length > 0)
             {
-                Convert.ToBase64String(e.UserData.HWId.AsSpan());
+                Convert.ToBase64String(hwid.AsSpan());
             }
         }
 
         // Проверка на то, есть ли баны с этим же сикеем не на текущем устройстве
         if (!banList.Any(x =>
                 (x.HWId == null || infoHwid != x.HWId.Hwid.ToString()) &&
-                (x.Address == null || !Equals(e.IP.Address, x.Address.Value.address)) &&
+                (x.Address == null || !Equals(ip, x.Address.Value.address)) &&
                 banList.Count > 0))
         {
             return;
         }
 
-        banList = await _db.GetServerBansAsync(e.IP.Address, null, null, null, false);
-        var infoIp = banList.Count > 0 ? e.IP.Address.ToString() : null;
+        banList = await _db.GetServerBansAsync(ip, null, null, null, false);
+        var infoIp = banList.Count > 0 ? ip.ToString() : null;
 
         // Проверка, имеются ли баны с текущим айпи на других аккаунтах
         if (!banList.Any(x =>
-                (x.UserId != e.UserId) &&
+                (x.UserId != userId) &&
                 banList.Count > 0))
         {
             infoIp = null;
         }
 
-        banList = await _db.GetServerBansAsync(null, null, e.UserData.HWId, e.UserData.ModernHWIds, false);
+        banList = await _db.GetServerBansAsync(null, null, hwid, modernHwids, false);
 
         // Проверка, имеются ли баны с текущим хвид на других аккаунтах
         if (!banList.Any(x =>
-                (x.UserId != e.UserId) &&
+                (x.UserId != userId) &&
                 banList.Count > 0) ||
             banList.Count > 0)
         {
