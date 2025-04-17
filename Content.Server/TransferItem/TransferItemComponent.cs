@@ -1,6 +1,8 @@
-namespace Content.Server.TransferItem;
-
-public sealed class TransferItemComponent
+namespace Content.Server.TransferItem
 {
-    
+    [RegisterComponent]
+    public sealed partial class TransferItemComponent : Component
+    {
+    }
 }
+
