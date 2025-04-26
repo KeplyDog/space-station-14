@@ -73,13 +73,13 @@ public sealed class BypassBanWebhook : EntitySystem
 
         if (infoIp != null)
         {
-            fields.Add(new() { Name = "Попытка обхода бана!", Value = ProfileUrl("Ip", infoIp)});
+            fields.Add(new() { Name = "Попытка обхода бана!", Value = ProfileUrl("Ip", infoIp) + infoIp});
             infoType = "Ip";
         }
 
         if (infoHwid != null)
         {
-            fields.Add(new() { Name = "Попытка обхода бана!", Value = ProfileUrl("Hwid", infoHwid)});
+            fields.Add(new() { Name = "Попытка обхода бана!", Value = ProfileUrl("Hwid", infoHwid) + infoHwid});
             infoType = string.IsNullOrEmpty(infoType) ? "HWid" : $"{infoType} и HWid";
         }
 
@@ -147,11 +147,11 @@ public sealed class BypassBanWebhook : EntitySystem
     {
         if (modernHwids != null && modernHwids.Length > 0)
         {
-            return $"V2-{Convert.ToBase64String(modernHwids.First().AsSpan())}";
+            return $"V2-{Convert.ToBase64String(modernHwids.First().AsSpan())}".Replace("+", "%2B");
         }
         if (hwid != null && hwid.Length > 0)
         {
-            return Convert.ToBase64String(hwid.AsSpan());
+            return Convert.ToBase64String(hwid.AsSpan()).Replace("+", "%2B");
         }
         return null;
     }

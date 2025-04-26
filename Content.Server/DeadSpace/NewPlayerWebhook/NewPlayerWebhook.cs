@@ -119,7 +119,7 @@ public sealed class NewPlayerWebhook : EntitySystem
     private string ProfileUrl(string? value, string info)
     {
         return $"[{value}]({_cfg.GetCVar(CCVars.AdminWebSite)}" +
-               $"/Connections?showSet=true&search={info}" +
+               $"/Connections?showSet=true&search={info.Replace("+", "%2B")}" +
                $"&showAccepted=true&showBanned=true&showWhitelist=true&showFull=true&showPanic=true)";
     }
 }
