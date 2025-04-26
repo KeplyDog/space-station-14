@@ -64,7 +64,7 @@
       collection: BikeHorn
 
 - type: entity
-  parent: [ClothingBackpackDuffel, BaseRestrictedContraband]
+  parent: [ClothingBackpackDuffel, BaseSecurityContraband]
   id: ClothingBackpackDuffelSecurity
   name: security duffel bag
   description: A large duffel bag for holding extra security related goods.
@@ -73,7 +73,7 @@
     sprite: Clothing/Back/Duffels/security.rsi
 
 - type: entity
-  parent: [ClothingBackpackDuffel, BaseRestrictedContraband]
+  parent: [ClothingBackpackDuffel, BaseSecurityContraband]
   id: ClothingBackpackDuffelBrigmedic
   name: brigmedic duffel bag
   description: A large duffel bag for holding extra medical related goods.
@@ -166,7 +166,7 @@
   - type: Sprite
     sprite: Clothing/Back/Duffels/syndicate.rsi
   - type: ExplosionResistance
-    damageCoefficient: 0.1
+    damageCoefficient: 0.75
   - type: Storage
     grid:
     - 0,0,8,4
@@ -244,15 +244,15 @@
     sprintModifier: 1 # makes its stats identical to other variants of bag of holding
   - type: HeldSpeedModifier
 
-- type: entity
-  parent: [ ClothingBackpackDuffel, BaseCentcommContraband ]
-  id: ClothingBackpackDuffelCBURN
-  name: CBURN duffel bag
-  description: A duffel bag containing a variety of biological containment equipment.
-  components:
-  - type: Storage
-    maxItemSize: Huge
-  - type: ClothingSpeedModifier
-    walkModifier: 1
-    sprintModifier: 1
-  - type: HeldSpeedModifier
+# - type: entity
+#   parent: [ ClothingBackpackDuffel, BaseCentcommContraband ]
+#   id: ClothingBackpackDuffelCBURN
+#   name: CBURN duffel bag
+#   description: A duffel bag containing a variety of biological containment equipment.
+#   components:
+#   - type: Storage
+#     maxItemSize: Huge
+#   - type: ClothingSpeedModifier
+#     walkModifier: 1
+#     sprintModifier: 1
+#   - type: HeldSpeedModifier

@@ -3,6 +3,8 @@
 - type: latheRecipe
   abstract: true
   id: BaseJumpsuitRecipe
+  categories:
+  - Jumpsuits
   completetime: 4
   materials:
     Cloth: 300
@@ -11,6 +13,9 @@
   abstract: true
   parent: BaseJumpsuitRecipe
   id: BaseCommandJumpsuitRecipe
+  categories:
+  - Jumpsuits
+  - Command
   materials:
     Cloth: 300
     Durathread: 100
@@ -18,6 +23,8 @@
 - type: latheRecipe
   abstract: true
   id: BaseCoatRecipe
+  categories:
+  - Coats
   completetime: 3.2 # don't ask why its faster than a jumpsuit??
   materials:
     Cloth: 500
@@ -27,6 +34,9 @@
   abstract: true
   parent: BaseCoatRecipe
   id: BaseCommandCoatRecipe
+  categories:
+  - Coats
+  - Command
   materials:
     Cloth: 500
     Durathread: 300
@@ -34,6 +44,8 @@
 - type: latheRecipe
   abstract: true
   id: BaseHatRecipe
+  categories:
+  - Hats
   completetime: 2
   materials:
     Cloth: 100
@@ -42,6 +54,9 @@
   abstract: true
   parent: BaseHatRecipe
   id: BaseCommandHatRecipe
+  categories:
+  - Hats
+  - Command
   materials:
     Cloth: 100
     Durathread: 50
@@ -49,11 +64,13 @@
 - type: latheRecipe
   abstract: true
   id: BaseNeckClothingRecipe
+  categories:
+  - Neck
   completetime: 2
   materials:
     Cloth: 200
 
-# Recipes
+## Recipes
 
 # Jumpsuits/skirts
 - type: latheRecipe
@@ -65,6 +82,11 @@
   parent: BaseJumpsuitRecipe
   id: ClothingUniformJumpskirtColorGrey
   result: ClothingUniformJumpskirtColorGrey
+  
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpsuitLoungewear
+  result: ClothingUniformJumpsuitLoungewear
 
 - type: latheRecipe
   parent: BaseJumpsuitRecipe
@@ -106,10 +128,48 @@
   id: ClothingUniformJumpskirtCargo
   result: ClothingUniformJumpskirtCargo
 
+# DS14-start
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpsuitCargoAlt
+  result: ClothingUniformJumpsuitCargoAlt
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpsuitCargoFormal
+  result: ClothingUniformJumpsuitCargoFormal
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpskirtCargoFormal
+  result: ClothingUniformJumpskirtCargoFormal
+
+# DS14-end
+
 - type: latheRecipe
   parent: BaseJumpsuitRecipe
   id: ClothingUniformJumpsuitSalvageSpecialist
   result: ClothingUniformJumpsuitSalvageSpecialist
+
+# DS14-start
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpsuitSalvageFormal
+  result: ClothingUniformJumpsuitSalvageFormal
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpskirtCargoSalvage
+  result: ClothingUniformJumpskirtCargoSalvage
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpskirtCargoSalvageFormal
+  result: ClothingUniformJumpskirtCargoSalvageFormal
+
+# DS14-end
 
 - type: latheRecipe
   parent: BaseCommandJumpsuitRecipe
@@ -398,6 +458,16 @@
   id: ClothingUniformJumpskirtMime
   result: ClothingUniformJumpskirtMime
 
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpsuitMimeSexyWhite
+  result: ClothingUniformJumpsuitMimeSexyWhite
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpsuitMimeSexyBlack
+  result: ClothingUniformJumpsuitMimeSexyBlack
+
 ## Musician
 
 - type: latheRecipe
@@ -565,6 +635,16 @@
 
 - type: latheRecipe
   parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpsuitCoroner
+  result: ClothingUniformJumpsuitCoroner
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpskirtCoroner
+  result: ClothingUniformJumpskirtCoroner
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
   id: ClothingUniformJumpsuitWarden
   result: ClothingUniformJumpsuitWarden
 
@@ -619,6 +699,7 @@
   id: ClothingOuterWinterRD
   result: ClothingOuterWinterRD
 
+
 # Winter coats
 - type: latheRecipe
   parent: BaseCoatRecipe
@@ -629,6 +710,11 @@
   parent: BaseCoatRecipe
   id: ClothingOuterWinterClown
   result: ClothingOuterWinterClown
+
+- type: latheRecipe
+  parent: BaseCoatRecipe
+  id: ClothingOuterWinterClownDownjacket
+  result: ClothingOuterWinterClownDownjacket
 
 - type: latheRecipe
   parent: BaseCoatRecipe

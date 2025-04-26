@@ -36,6 +36,17 @@
   equipment:
     jumpsuit: ClothingUniformJumpskirtDetectiveGrey
 
+# Back
+- type: loadout
+  id: DetectiveSatchel
+  equipment:
+    back: ClothingBackpackSatchelDetective
+
+- type: loadout
+  id: DetectiveGreySatchel
+  equipment:
+    back: ClothingBackpackSatchelDetectiveGrey
+
 # OuterClothing
 - type: loadout
   id: DetectiveArmorVest
@@ -51,3 +62,55 @@
   id: DetectiveCoatGrey
   equipment:
     outerClothing: ClothingOuterCoatDetectiveLoadoutGrey
+
+- type: loadout
+  id: DetectiveCoatAlt
+  equipment:
+    outerClothing: ClothingOuterCoatDetectiveAlt
+
+# Shoes
+- type: loadout
+  id: DetectiveBoots
+  equipment:
+    shoes: ClothingShoesBootsDetective
+
+- type: loadout
+  id: DetectiveGreyBoots
+  equipment:
+    shoes: ClothingShoesBootsDetectiveGrey
+
+# Socks
+- type: loadout
+  id: UnderwearSocksDetective
+  equipment:
+    socks: ClothingUnderwearSocksDetective
+
+- type: loadout
+  id: UnderwearWomenSocksDetective
+  equipment:
+    socks: ClothingUnderwearWomenSocksDetective
+
+# Underwear
+- type: loadout
+  id: UnderwearBottomBoxersDetective
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomBoxersDetective
+
+- type: loadout
+  id: UnderwearBottomPantiesDetective
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomPantiesDetective
+
+- type: loadout
+  id: UnderwearTopBraDetective
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underweart: ClothingUnderwearTopBraDetective

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from  at commit https://github.com/tgstation/tgstation/commit/f01de25493e2bd2706ef9b0303cb0d7b5e3e471b.     poster52_contraband, poster53_contraband and poster54_contraband taken from https://github.com/vgstation-coders/vgstation13/blob/435ed5f2a7926e91cc31abac3a0d47d7e9ad7ed4/icons/obj/posters.dmi.     originmap, poster55_contraband, poster56_contraband, poster57_contraband and poster39_legit by discord brainfood#7460,     poster63_contraband by discord foboscheshir_,     poster52_legit by SlamBamActionman,     poster53_legit and the original version by @RCOI on discord, modified by Spessmann.",
+  "copyright": "Taken from  at commit https://github.com/tgstation/tgstation/commit/f01de25493e2bd2706ef9b0303cb0d7b5e3e471b.     poster52_contraband, poster53_contraband and poster54_contraband taken from https://github.com/vgstation-coders/vgstation13/blob/435ed5f2a7926e91cc31abac3a0d47d7e9ad7ed4/icons/obj/posters.dmi.     originmap, poster55_contraband, poster56_contraband, poster57_contraband and poster39_legit by discord brainfood#7460,     poster63_contraband by discord foboscheshir_,     poster52_legit by SlamBamActionman,     poster53_legit and the original version by @RCOI on discord, modified by Spessmann,     poster54_legit by hex_reject on Discord.",
   "size": {
     "x": 32,
     "y": 32
@@ -56,6 +56,9 @@
     },
     {
       "name": "poster1_contraband"
+    },
+    {
+      "name": "quadro_electronics"
     },
     {
       "name": "poster2_contraband"
@@ -388,6 +391,9 @@
       "name": "poster53_legit"
     },
     {
+      "name": "poster54_legit"
+    },
+    {
       "name": "random_legit"
     },
     {
@@ -397,46 +403,129 @@
       "name": "random_anything"
     },
     {
-      "name": "poster52_contraband"
+      "name": "poster52_contraband",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "poster53_contraband"
+      "name": "poster53_contraband",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "poster54_contraband"
+      "name": "poster54_contraband",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "bagelmap"
+      "name": "bagelmap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "deltamap"
+      "name": "deltamap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "marathonmap"
+      "name": "marathonmap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "originmap"
+      "name": "originmap",
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "moosemap"
+      "name": "moosemap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "packedmap"
+      "name": "packedmap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "pillarmap"
+      "name": "pillarmap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "salternmap"
+      "name": "salternmap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "splitmap"
+      "name": "splitmap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "lighthousemap"
+      "name": "lighthousemap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     },
     {
-      "name": "waystationmap"
+      "name": "waystationmap",
+      "directions": 1,
+      "delays": [
+        [
+          1.0
+        ]
+      ]
     }
   ]
 }

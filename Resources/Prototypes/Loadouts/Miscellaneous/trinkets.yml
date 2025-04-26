@@ -28,6 +28,13 @@
     back:
     - ClothingNeckHeadphones
 
+# DS14: HatDeer
+- type: loadout
+  id: HatDeer
+  storage:
+    back:
+    - ClothingHeadHatDeer
+
 # Toys
 - type: loadout
   id: PlushieLizard
@@ -107,6 +114,12 @@
     - ClothingNeckLGBTPin
 
 - type: loadout
+  id: ClothingNeckAllyPin
+  storage:
+    back:
+    - ClothingNeckAllyPin
+
+- type: loadout
   id: ClothingNeckAromanticPin
   storage:
     back:
@@ -117,6 +130,12 @@
   storage:
     back:
     - ClothingNeckAsexualPin
+
+- type: loadout
+  id: ClothingNeckAroacePin
+  storage:
+    back:
+    - ClothingNeckAroacePin
 
 - type: loadout
   id: ClothingNeckBisexualPin

@@ -66,6 +66,10 @@
   - type: PointLight
     radius: 6
     enabled: false
+  - type: TypingIndicator
+    proto: default
+  - type: ShowJobIcons
+  - type: ShowMindShieldIcons
 
 # proto for player ghosts specifically
 - type: entity
@@ -73,6 +77,9 @@
   id: MobObserver
   components:
   - type: Spectral
+  - type: Tag
+    tags:
+    - AllowGhostShownByEvent
 
 - type: entity
   id: ActionGhostBoo

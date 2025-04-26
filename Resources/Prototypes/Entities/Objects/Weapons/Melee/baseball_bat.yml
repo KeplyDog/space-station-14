@@ -54,6 +54,7 @@
     state: icon
   - type: Item
     size: Normal
+    sprite: Objects/Weapons/Melee/incomplete_bat.rsi
   - type: Construction
     graph: WoodenBat
     node: incompleteBat
@@ -63,10 +64,45 @@
   parent: BaseBallBat
   id: WeaponMeleeKnockbackStick
   description: And then he spleefed all over.
-  suffix: Do not map
+  categories: [ DoNotMap ]
   components:
   - type: MeleeThrowOnHit
   - type: MeleeWeapon
     damage:
       types:
         Blunt: 1
+
+# DS14
+- type: entity
+  parent: BaseBallBat
+  id: BaseBallBatSteel
+  components:
+  - type: Sprite
+    sprite: _DeadSpace/Objects/Weapons/Melee/baseball_bat_with_nails.rsi
+    state: icon
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 10
+        Structural: 5
+        Slash: 4
+  - type: Wieldable
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 8
+        Slash: 3
+  - type: Item
+    size: Normal
+  - type: Tool
+    qualities:
+    - Rolling
+    speedModifier: 0.75
+  - type: Clothing
+    quickEquip: false
+    slots:
+    - back
+  - type: Construction
+    graph: WoodenBat
+    node: bat

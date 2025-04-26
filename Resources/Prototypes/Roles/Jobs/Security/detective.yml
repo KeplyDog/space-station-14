@@ -16,9 +16,15 @@
   - Brig
   - Maintenance
   - Service
-  - Detective
-  - Cryogenics
   - External
+  - Cryogenics
+  - Detective
+  #start-backmen: currency
+  minBankBalance: 150
+  maxBankBalance: 250
+  wageDepartment: Security
+  wage: 55
+  #end-backmen: currency
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]

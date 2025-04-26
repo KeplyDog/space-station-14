@@ -2,11 +2,11 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Roles;
 
-[Prototype("department")]
+[Prototype]
 public sealed partial class DepartmentPrototype : IPrototype
 {
     [IdDataField]
-    public string ID { get; } = string.Empty;
+    public string ID { get; private set; } = string.Empty;
 
     /// <summary>
     /// The name LocId of the department that will be displayed in the various menus.
@@ -28,6 +28,11 @@ public sealed partial class DepartmentPrototype : IPrototype
 
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public List<ProtoId<JobPrototype>> Roles = new();
+
+// start-backmen: currency
+    [DataField("accountNumber")]
+    public string? AccountNumber { get; private set; }
+// end-backmen: currency
 
     /// <summary>
     /// Whether this is a primary department or not.

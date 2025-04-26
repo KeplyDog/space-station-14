@@ -30,3 +30,39 @@
   id: WardenArmoredWinterCoat
   equipment:
     outerClothing: ClothingOuterWinterWarden
+
+# Socks
+- type: loadout
+  id: UnderwearSocksWarden
+  equipment:
+    socks: ClothingUnderwearSocksWarden
+
+- type: loadout
+  id: UnderwearWomenSocksWarden
+  equipment:
+    socks: ClothingUnderwearWomenSocksWarden
+
+# Underwear
+- type: loadout
+  id: UnderwearBottomBoxersWarden
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: MaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomBoxersWarden
+
+- type: loadout
+  id: UnderwearBottomPantiesWarden
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underwearb: ClothingUnderwearBottomPantiesWarden
+
+- type: loadout
+  id: UnderwearTopBraWarden
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: FemaleUnderwear
+  equipment:
+    underweart: ClothingUnderwearTopBraWarden

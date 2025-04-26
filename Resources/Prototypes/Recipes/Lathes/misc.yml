@@ -3,7 +3,8 @@
 - type: latheRecipe
   abstract: true
   id: BaseLightRecipe
-  category: Lights
+  categories:
+  - Lights
   completetime: 2
   materials:
     Steel: 50
@@ -236,3 +237,25 @@
   completetime: 3
   materials:
     Plastic: 200
+
+ # DS14-start
+
+- type: latheRecipe
+  id: CassetteTape
+  result: CassetteTape
+  categories:
+  - Tools
+  completetime: 2
+  materials:
+    Steel: 50
+    Plastic: 150
+
+- type: latheRecipe
+  id: TapeRecorder
+  result: TapeRecorder
+  categories:
+  - Tools
+  completetime: 3
+  materials:
+    Steel: 250
+    Plastic: 250

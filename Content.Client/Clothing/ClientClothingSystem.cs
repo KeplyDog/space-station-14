@@ -47,6 +47,9 @@ public sealed class ClientClothingSystem : ClothingSystem
         {"pocket1", "POCKET1"},
         {"pocket2", "POCKET2"},
         {"suitstorage", "SUITSTORAGE"},
+        {"socks", "SOCKS"}, // DS14-Underwear
+        {"underweart", "UNDERWEART"}, // DS14-Underwear
+        {"underwearb", "UNDERWEARB"}, // DS14-Underwear
     };
 
     [Dependency] private readonly IResourceCache _cache = default!;
@@ -162,7 +165,7 @@ public sealed class ClientClothingSystem : ClothingSystem
 
         var state = $"equipped-{correctedSlot}";
 
-        if (clothing.EquippedPrefix != null)
+        if (!string.IsNullOrEmpty(clothing.EquippedPrefix))
             state = $"{clothing.EquippedPrefix}-equipped-{correctedSlot}";
 
         if (clothing.EquippedState != null)

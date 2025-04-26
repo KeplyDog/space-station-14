@@ -99,6 +99,7 @@
           visualType: Large
           messages: [ "skeleton-sprayed-by-oat-milk-popup" ]
           probability: 0.5
+  - type: ImmunitetInfectionDead
   - type: FireVisuals
     alternateState: Standing
   - type: FlashImmunity
@@ -109,6 +110,7 @@
           32:
             sprite: Mobs/Species/Human/displacement.rsi
             state: jumpsuit-female
+  - type: FootPrints # Backmen-footsteps
 
 - type: entity
   parent: BaseSpeciesDummy

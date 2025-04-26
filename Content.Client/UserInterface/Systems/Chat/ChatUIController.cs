@@ -467,8 +467,9 @@ public sealed class ChatUIController : UIController
 
         if (existing.Count > SpeechBubbleCap)
         {
-            // Get the oldest to start fading fast.
-            var last = existing[0];
+            // Get the next speech bubble to fade
+            // Any speech bubbles before it are already fading
+            var last = existing[^(SpeechBubbleCap + 1)];
             last.FadeNow();
         }
     }
@@ -916,6 +917,13 @@ public sealed class ChatUIController : UIController
     {
         _typingIndicator?.ClientChangedChatText();
     }
+
+    // Corvax-TypingIndicator-Start
+    public void NotifyChatFocus(bool isFocused)
+    {
+        _typingIndicator?.ClientChangedChatFocus(isFocused);
+    }
+    // Corvax-TypingIndicator-End
 
     public void Repopulate()
     {

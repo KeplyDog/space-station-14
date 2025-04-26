@@ -56,19 +56,20 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
         _window = UIManager.CreateWindow<CharacterWindow>();
         LayoutContainer.SetAnchorPreset(_window, LayoutContainer.LayoutPreset.CenterTop);
 
-
+        _window.OnClose += DeactivateButton;
+        _window.OnOpen += ActivateButton;
 
         CommandBinds.Builder
             .Bind(ContentKeyFunctions.OpenCharacterMenu,
-                 InputCmdHandler.FromDelegate(_ => ToggleWindow()))
-             .Register<CharacterUIController>();
+                InputCmdHandler.FromDelegate(_ => ToggleWindow()))
+            .Register<CharacterUIController>();
     }
 
     public void OnStateExited(GameplayState state)
     {
         if (_window != null)
         {
-            _window.Dispose();
+            _window.Close();
             _window = null;
         }
 
@@ -105,18 +106,27 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
         }
 
         CharacterButton.OnPressed += CharacterButtonPressed;
+    }
 
-        if (_window == null)
+    private void DeactivateButton()
+    {
+        if (CharacterButton == null)
         {
             return;
         }
 
-        _window.OnClose += DeactivateButton;
-        _window.OnOpen += ActivateButton;
+        CharacterButton.Pressed = false;
     }
 
-    private void DeactivateButton() => CharacterButton!.Pressed = false;
-    private void ActivateButton() => CharacterButton!.Pressed = true;
+    private void ActivateButton()
+    {
+        if (CharacterButton == null)
+        {
+            return;
+        }
+
+        CharacterButton.Pressed = true;
+    }
 
     private void CharacterUpdated(CharacterData data)
     {
@@ -136,8 +146,59 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
         _window.Objectives.RemoveAllChildren();
         _window.ObjectivesLabel.Visible = objectives.Any();
 
+        // start backmen: currency
+        {
+            _window.Memory.RemoveAllChildren();
+            foreach (var (groupId, conditions) in objectives)
+            {
+                if (groupId != "SpaceBank")
+                {
+                    continue;
+                }
+                var objectiveControl = new CharacterObjectiveControl
+                {
+                    Orientation = BoxContainer.LayoutOrientation.Vertical,
+                    Modulate = Color.Gray
+                };
+
+                objectiveControl.AddChild(new Label
+                {
+                    Text = groupId,
+                    Modulate = Color.LightSkyBlue
+                });
+
+                foreach (var condition in conditions)
+                {
+                    var conditionControl = new ObjectiveConditionsControl();
+                    conditionControl.ProgressTexture.Texture = _sprite.Frame0(condition.Icon);
+                    conditionControl.ProgressTexture.Progress = condition.Progress;
+
+                    var titleMessage = new FormattedMessage();
+                    var descriptionMessage = new FormattedMessage();
+
+                    titleMessage.AddText(condition.Title);
+                    descriptionMessage.AddText(condition.Description);
+
+                    conditionControl.Title.SetMessage(titleMessage);
+                    conditionControl.Description.SetMessage(descriptionMessage);
+
+                    objectiveControl.AddChild(conditionControl);
+                }
+
+                _window.Memory.AddChild(objectiveControl);
+            }
+        }
+        // end backmen: currency
+
         foreach (var (groupId, conditions) in objectives)
         {
+            // start backmen: currency
+            if (groupId == "SpaceBank")
+            {
+                continue;
+            }
+            // end backmen: currency
+
             var objectiveControl = new CharacterObjectiveControl
             {
                 Orientation = BoxContainer.LayoutOrientation.Vertical,
@@ -150,11 +211,12 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
 
             var objectiveLabel = new RichTextLabel
             {
-                StyleClasses = {StyleNano.StyleClassTooltipActionTitle}
+                StyleClasses = { StyleNano.StyleClassTooltipActionTitle }
             };
             objectiveLabel.SetMessage(objectiveText);
 
             objectiveControl.AddChild(objectiveLabel);
+
 
             foreach (var condition in conditions)
             {
@@ -245,10 +307,7 @@ public sealed class CharacterUIController : UIController, IOnStateEntered<Gamepl
         if (_window == null)
             return;
 
-        if (CharacterButton != null)
-        {
-            CharacterButton.SetClickPressed(!_window.IsOpen);
-        }
+        CharacterButton?.SetClickPressed(!_window.IsOpen);
 
         if (_window.IsOpen)
         {

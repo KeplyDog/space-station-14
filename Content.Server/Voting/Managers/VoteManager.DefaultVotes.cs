@@ -1,21 +1,24 @@
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using Content.Server.Administration;
 using Content.Server.Administration.Managers;
-using Content.Server.Database;
 using Content.Server.Discord.WebhookMessages;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Presets;
 using Content.Server.Maps;
 using Content.Server.Roles;
 using Content.Server.RoundEnd;
+using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Database;
-using Content.Shared.Ghost;
 using Content.Shared.Players;
 using Content.Shared.Players.PlayTimeTracking;
 using Content.Shared.Voting;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Robust.Shared.Configuration;
+using Robust.Shared.Console;
 using Robust.Shared.Enums;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
@@ -27,14 +30,15 @@ namespace Content.Server.Voting.Managers
         [Dependency] private readonly IPlayerLocator _locator = default!;
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly IBanManager _bans = default!;
-        [Dependency] private readonly IServerDbManager _dbManager = default!;
         [Dependency] private readonly VoteWebhooks _voteWebhooks = default!;
 
         private VotingSystem? _votingSystem;
         private RoleSystem? _roleSystem;
         private GameTicker? _gameTicker;
 
-        private static readonly Dictionary<StandardVoteType, CVarDef<bool>> _voteTypesToEnableCVars = new()
+        public bool VoteStarted;
+
+        private static readonly Dictionary<StandardVoteType, CVarDef<bool>> VoteTypesToEnableCVars = new()
         {
             {StandardVoteType.Restart, CCVars.VoteRestartEnabled},
             {StandardVoteType.Preset, CCVars.VotePresetEnabled},
@@ -51,6 +55,8 @@ namespace Content.Server.Voting.Managers
             else
                 _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"Initiated a {voteType.ToString()} vote");
 
+            _gameTicker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
+
             bool timeoutVote = true;
 
             switch (voteType)
@@ -59,7 +65,7 @@ namespace Content.Server.Voting.Managers
                     CreateRestartVote(initiator);
                     break;
                 case StandardVoteType.Preset:
-                    CreatePresetVote(initiator);
+                    CreatePresetVote(initiator, args);
                     break;
                 case StandardVoteType.Map:
                     CreateMapVote(initiator);
@@ -71,7 +77,6 @@ namespace Content.Server.Voting.Managers
                 default:
                     throw new ArgumentOutOfRangeException(nameof(voteType), voteType, null);
             }
-            _gameTicker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
             _gameTicker.UpdateInfoText();
             if (timeoutVote)
                 TimeoutStandardVote(voteType);
@@ -215,9 +220,24 @@ namespace Content.Server.Voting.Managers
                 Loc.GetString("ui-vote-restart-fail-not-enough-ghost-players", ("ghostPlayerRequirement", ghostPercentageRequirement)));
         }
 
-        private void CreatePresetVote(ICommonSession? initiator)
+        private void CreatePresetVote(ICommonSession? initiator, string[]? args = null)
         {
-            var presets = GetGamePresets();
+            if (VoteStarted)
+                return;
+
+            var presets = GetGamePresets(false);
+            if (args is { Length: > 0 })
+            {
+                presets = presets
+                    .Where(allPreset => args.Contains(allPreset.Key))
+                    .ToDictionary(preset => preset.Key, preset => preset.Value);
+
+                presets = presets.Count > 0 ? presets : GetGamePresets(true);
+            }
+            else
+            {
+                presets = GetGamePresets(true);
+            }
 
             var alone = _playerManager.PlayerCount == 1 && initiator != null;
             var options = new VoteOptions
@@ -225,7 +245,8 @@ namespace Content.Server.Voting.Managers
                 Title = Loc.GetString("ui-vote-gamemode-title"),
                 Duration = alone
                     ? TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerAlone))
-                    : TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerPreset))
+                    : TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.VoteTimerPreset)),
+                DisplayVotes = false,
             };
 
             if (alone)
@@ -239,6 +260,7 @@ namespace Content.Server.Voting.Managers
             WirePresetVoteInitiator(options, initiator);
 
             var vote = CreateVote(options);
+            VoteStarted = true;
 
             vote.OnFinished += (_, args) =>
             {
@@ -258,6 +280,7 @@ namespace Content.Server.Voting.Managers
                 _adminLogger.Add(LogType.Vote, LogImpact.Medium, $"Preset vote finished: {picked}");
                 var ticker = _entityManager.EntitySysManager.GetEntitySystem<GameTicker>();
                 ticker.SetGamePreset(picked);
+                VoteStarted = false;
             };
         }
 
@@ -371,6 +394,15 @@ namespace Content.Server.Voting.Managers
             }
             var targetUid = located.UserId;
             var targetHWid = located.LastHWId;
+            (IPAddress, int)? targetIP = null;
+
+            if (located.LastAddress is not null)
+            {
+                targetIP = located.LastAddress.AddressFamily is AddressFamily.InterNetwork
+                    ? (located.LastAddress, 32) // People with ipv4 addresses get a /32 address so we ban that
+                    : (located.LastAddress, 64); // This can only be an ipv6 address. People with ipv6 address should get /64 addresses so we ban that.
+            }
+
             if (!_playerManager.TryGetSessionById(located.UserId, out ICommonSession? targetSession))
             {
                 _logManager.GetSawmill("admin.votekick")
@@ -535,7 +567,7 @@ namespace Content.Server.Voting.Managers
 
                         uint minutes = (uint)_cfg.GetCVar(CCVars.VotekickBanDuration);
 
-                        _bans.CreateServerBan(targetUid, target, null, null, targetHWid, minutes, severity, reason);
+                        _bans.CreateServerBan(targetUid, target, null, targetIP, targetHWid, minutes, severity, Loc.GetString("votekick-ban-reason", ("reason", reason)));
                     }
                 }
                 else
@@ -576,14 +608,18 @@ namespace Content.Server.Voting.Managers
             DirtyCanCallVoteAll();
         }
 
-        private Dictionary<string, string> GetGamePresets()
+        private Dictionary<string, string> GetGamePresets(bool standardVote)
         {
             var presets = new Dictionary<string, string>();
 
             foreach (var preset in _prototypeManager.EnumeratePrototypes<GamePresetPrototype>())
             {
-                if(!preset.ShowInVote)
-                    continue;
+                switch (standardVote)
+                {
+                    case true when !preset.ShowInVote:
+                    case false when !preset.ShowInAdminVote:
+                        continue;
+                }
 
                 if(_playerManager.PlayerCount < (preset.MinPlayers ?? int.MinValue))
                     continue;

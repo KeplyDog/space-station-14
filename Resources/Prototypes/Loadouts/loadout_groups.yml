@@ -8,6 +8,7 @@
   - FlowerWreath
   - Hairflower
   - Headphones
+  - HatDeer # DS14
   - PlushieLizard
   - PlushieSpaceLizard
   - ThreeCandles
@@ -19,8 +20,10 @@
   - CigarCase
   - CigarGold
   - ClothingNeckLGBTPin
+  - ClothingNeckAllyPin
   - ClothingNeckAromanticPin
   - ClothingNeckAsexualPin
+  - ClothingNeckAroacePin
   - ClothingNeckBisexualPin
   - ClothingNeckGayPin
   - ClothingNeckIntersexPin
@@ -32,6 +35,7 @@
   - ClothingNeckTransPin
   - ClothingNeckAutismPin
   - ClothingNeckGoldAutismPin
+  - CorporateLaw # Corvax-HyperLink
   - TowelColorBlack
   - TowelColorDarkBlue
   - TowelColorDarkGreen
@@ -74,8 +78,14 @@
   loadouts:
   - EmergencyNitrogen
   - EmergencyOxygen
+  # DS14-species-emergency-start
+  - EmergencyNonBreather
+  - EmergencyRobotNonBreather
+  # DS14-species-emergency-end
   - LoadoutSpeciesVoxNitrogen
+  - EmergencyBeer
 
+# nitrogen or oxygen tank, depending on what your species needs
 - type: loadoutGroup
   id: GroupEVATank
   name: loadout-group-EVA-tank
@@ -83,6 +93,14 @@
   loadouts:
   - LoadoutSpeciesEVANitrogen
   - LoadoutSpeciesEVAOxygen
+
+# vox get a nitrogen tank, other species get nothing
+- type: loadoutGroup
+  id: GroupEVATankVox
+  name: loadout-group-vox-tank
+  hidden: true
+  loadouts:
+  - LoadoutSpeciesVoxNitrogen
 
 - type: loadoutGroup
   id: GroupPocketTankDouble
@@ -135,6 +153,16 @@
   - CaptainWintercoat
 
 - type: loadoutGroup
+  id: CaptainUnderwear
+  name: loadout-group-captain-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersCaptain
+  - UnderwearTopBraCaptain
+  - UnderwearBottomPantiesCaptain
+
+- type: loadoutGroup
   id: HoPHead
   name: loadout-group-hop-head
   minLimit: 0
@@ -171,6 +199,23 @@
   minLimit: 0
   loadouts:
   - HoPWintercoat
+
+- type: loadoutGroup
+  id: HoPShoes
+  name: loadout-group-hop-shoes
+  loadouts:
+  - ShoesBootsLaceup
+  - BrownShoes
+  
+- type: loadoutGroup
+  id: HoPUnderwear
+  name: loadout-group-hop-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersHeadofPersonnel
+  - UnderwearTopBraHeadofPersonnel
+  - UnderwearBottomPantiesHeadofPersonnel
 
 # Civilian
 - type: loadoutGroup
@@ -240,6 +285,10 @@
   - BartenderJumpsuit
   - BartenderJumpskirt
   - BartenderJumpsuitPurple
+  - BartenderJumpsuitNew
+  - BartenderJumpskirtNew
+  - ServiceJumpsuitNew
+  - ServiceJumpskirtNew
 
 - type: loadoutGroup
   id: BartenderOuterClothing
@@ -249,6 +298,16 @@
   - BartenderVest
   - BartenderApron
   - BartenderWintercoat
+
+- type: loadoutGroup
+  id: BartenderUnderwear
+  name: loadout-group-bartender-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersBartender
+  - UnderwearTopBraBartender
+  - UnderwearBottomPantiesBartender
 
 - type: loadoutGroup
   id: ChefHead
@@ -281,20 +340,54 @@
   - ChefWintercoat
 
 - type: loadoutGroup
+  id: ChefUnderwear
+  name: loadout-group-chef-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersChef
+  - UnderwearTopBraChef
+  - UnderwearBottomPantiesChef
+
+- type: loadoutGroup
+  id: ChefHand
+  name: loadout-group-chef-hand
+  minLimit: 0
+  loadouts:
+  - ChefGoldenKnife  
+
+- type: loadoutGroup
+  id: ChefGloves
+  name: loadout-group-chef-gloves
+  minLimit: 0
+  loadouts:
+  - ClothingHandsGlovesLatex
+
+- type: loadoutGroup
   id: LibrarianJumpsuit
   name: loadout-group-librarian-jumpsuit
   loadouts:
   - LibrarianJumpsuit
   - LibrarianJumpskirt
-  - CuratorJumpsuit
-  - CuratorJumpskirt
+  # - CuratorJumpsuit
+  # - CuratorJumpskirt
+
+- type: loadoutGroup
+  id: LibrarianUnderwear
+  name: loadout-group-librarian-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersLibrarian
+  - UnderwearTopBraLibrarian
+  - UnderwearBottomPantiesLibrarian
 
 - type: loadoutGroup
   id: LawyerJumpsuit
   name: loadout-group-lawyer-jumpsuit
   loadouts:
-  - LawyerJumpsuit
-  - LawyerJumpskirt
+  # - LawyerJumpsuit
+  # - LawyerJumpskirt
   - LawyerJumpsuitBlue
   - LawyerJumpskirtBlue
   - LawyerJumpsuitPurple
@@ -307,9 +400,19 @@
 - type: loadoutGroup
   id: LawyerNeck
   name: loadout-group-lawyer-neck
-  minLimit: 0
+  minLimit: 1
   loadouts:
   - LawyerNeck
+
+- type: loadoutGroup
+  id: LawyerUnderwear
+  name: loadout-group-lawyer-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersLawyer
+  - UnderwearTopBraLawyer
+  - UnderwearBottomPantiesLawyer
 
 - type: loadoutGroup
   id: ChaplainHead
@@ -356,6 +459,16 @@
   - ChaplainNeck
 
 - type: loadoutGroup
+  id: ChaplainUnderwear
+  name: loadout-group-chaplain-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersChaplain
+  - UnderwearTopBraChaplain
+  - UnderwearBottomPantiesChaplain
+
+- type: loadoutGroup
   id: JanitorHead
   name: loadout-group-janitor-head
   minLimit: 0
@@ -393,6 +506,16 @@
   - JanitorGoldenPlunger
 
 - type: loadoutGroup
+  id: JanitorUnderwear
+  name: loadout-group-janitor-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersJanitor
+  - UnderwearTopBraJanitor
+  - UnderwearBottomPantiesJanitor
+
+- type: loadoutGroup
   id: BotanistHead
   name: loadout-group-botanist-head
   minLimit: 0
@@ -423,6 +546,16 @@
   loadouts:
   - BotanistApron
   - BotanistWintercoat
+
+- type: loadoutGroup
+  id: BotanistUnderwear
+  name: loadout-group-botanist-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersBotanist
+  - UnderwearTopBraBotanist
+  - UnderwearBottomPantiesBotanist
 
 - type: loadoutGroup
   id: ClownHead
@@ -456,6 +589,7 @@
   loadouts:
   - ClownRobes
   - ClownWintercoat
+  - ClownDownjacket
 
 - type: loadoutGroup
   id: ClownShoes
@@ -465,6 +599,16 @@
   - JesterShoes
 
 - type: loadoutGroup
+  id: ClownUnderwear
+  name: loadout-group-clown-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersClown
+  - UnderwearTopBraClown
+  - UnderwearBottomPantiesClown
+
+- type: loadoutGroup
   id: SurvivalClown
   name: loadout-group-survival-clown
   minLimit: 2
@@ -472,7 +616,12 @@
   loadouts:
   - EmergencyNitrogenClown
   - EmergencyOxygenClown
+  # DS14-species-emergency-start
+  - EmergencyNonBreather
+  - EmergencyRobotNonBreather  
+  # DS14-species-emergency-end
   - LoadoutSpeciesVoxNitrogen
+  - EmergencyBeerClown
 
 - type: loadoutGroup
   id: MimeHead
@@ -497,6 +646,14 @@
   loadouts:
   - MimeJumpsuit
   - MimeJumpskirt
+  - MimeJumpSexyWhite
+  - MimeJumpSexyBlack
+
+- type: loadoutGroup
+  id: MimeNeck
+  name: loadout-group-mime-neck
+  loadouts:
+  - MimeNeckSexy
 
 - type: loadoutGroup
   id: MimeBackpack
@@ -528,7 +685,22 @@
   loadouts:
   - EmergencyNitrogenMime
   - EmergencyOxygenMime
+  # DS14-species-emergency-start
+  - EmergencyNonBreather
+  - EmergencyRobotNonBreather  
+  # DS14-species-emergency-end
   - LoadoutSpeciesVoxNitrogen
+  - EmergencyBeerMime
+
+- type: loadoutGroup
+  id: MimeUnderwear
+  name: loadout-group-mime-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersMime
+  - UnderwearTopBraMime
+  - UnderwearBottomPantiesMime
 
 - type: loadoutGroup
   id: MusicianJumpsuit
@@ -543,6 +715,16 @@
   minLimit: 0
   loadouts:
   - MusicianWintercoat
+
+- type: loadoutGroup
+  id: MusicianUnderwear
+  name: loadout-group-musician-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersMusician
+  - UnderwearTopBraMusician
+  - UnderwearBottomPantiesMusician
 
 - type: loadoutGroup
   id: Instruments
@@ -578,6 +760,16 @@
   - PanFlute
   - Ocarina
   - Bagpipe
+
+- type: loadoutGroup
+  id: ServiceUnderwear
+  name: loadout-group-service-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersService
+  - UnderwearTopBraService
+  - UnderwearBottomPantiesService
 
 # Cargo
 - type: loadoutGroup
@@ -619,6 +811,17 @@
   loadouts:
   - BrownShoes
   - CargoWinterBoots
+  - ShoesBootsLaceup
+
+- type: loadoutGroup
+  id: QuartermasterUnderwear
+  name: loadout-group-quartermaster-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersQuartermaster
+  - UnderwearTopBraQuartermaster
+  - UnderwearBottomPantiesQuartermaster
 
 - type: loadoutGroup
   id: CargoTechnicianHead
@@ -633,6 +836,9 @@
   loadouts:
   - CargoTechnicianJumpsuit
   - CargoTechnicianJumpskirt
+  - CargoTechnicianSuit
+  - CargoTechnicianFormalSuit
+  - CargoTechnicianFormalJumpskirt
 
 - type: loadoutGroup
   id: CargoTechnicianBackpack
@@ -657,6 +863,16 @@
   - CargoWinterBoots
 
 - type: loadoutGroup
+  id: CargoTechnicianUnderwear
+  name: loadout-group-cargo-technician-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersCargoTechnician
+  - UnderwearTopBraCargoTechnician
+  - UnderwearBottomPantiesCargoTechnician
+
+- type: loadoutGroup
   id: SalvageSpecialistBackpack
   name: loadout-group-salvage-specialist-backpack
   loadouts:
@@ -664,6 +880,15 @@
   - SalvageSpecialistSatchel
   - SalvageSpecialistDuffel
 
+- type: loadoutGroup
+  id: SalvageSpecialistJumpsuit
+  name: loadout-group-salvage-specialist-jumpsuit
+  loadouts:
+  - SalvageSpecialistJumpsuit
+  - SalvageSpecialistJumpsuitFormal
+  - SalvageSpecialistJumpskirt
+  - SalvageSpecialistJumpskirtFormal
+  
 - type: loadoutGroup
   id: SalvageSpecialistOuterClothing
   name: loadout-group-salvage-specialist-outerclothing
@@ -677,6 +902,16 @@
   loadouts:
   - SalvageBoots
   - CargoWinterBoots
+
+- type: loadoutGroup
+  id: SalvageSpecialistUnderwear
+  name: loadout-group-salvage-specialist-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersSalvageSpecialist
+  - UnderwearTopBraSalvageSpecialist
+  - UnderwearBottomPantiesSalvageSpecialist
 
 # Engineering
 - type: loadoutGroup
@@ -695,6 +930,14 @@
   - ChiefEngineerJumpskirt
   - ChiefEngineerTurtleneck
   - ChiefEngineerTurtleneckSkirt
+
+- type: loadoutGroup
+  id: ChiefEngineerBackpack
+  name: loadout-group-chief-engineer-backpack
+  loadouts:
+  - ChiefEngineerBackpack
+  - ChiefEngineerSatchel
+  - ChiefEngineerDuffel
 
 - type: loadoutGroup
   id: ChiefEngineerNeck
@@ -717,6 +960,17 @@
   loadouts:
   - BrownShoes
   - EngineeringWinterBoots
+  - ShoesBootsLaceup
+
+- type: loadoutGroup
+  id: ChiefEngineerUnderwear
+  name: loadout-group-chief-engineer-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersChiefEngineer
+  - UnderwearTopBraChiefEngineer
+  - UnderwearBottomPantiesChiefEngineer
 
 - type: loadoutGroup
   id: TechnicalAssistantJumpsuit
@@ -726,13 +980,24 @@
   - YellowJumpskirt
 
 - type: loadoutGroup
+  id: TechnicalAssistantUnderwear
+  name: loadout-group-technical-assistant-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersTechnicalAssistant
+  - UnderwearTopBraTechnicalAssistant
+  - UnderwearBottomPantiesTechnicalAssistant
+
+- type: loadoutGroup
   id: StationEngineerHead
   name: loadout-group-station-engineer-head
+  minLimit: 0
   loadouts:
   - StationEngineerHardhatYellow
   - StationEngineerHardhatOrange
   - StationEngineerHardhatRed
-  - SeniorEngineerBeret
+  # - SeniorEngineerBeret
 
 - type: loadoutGroup
   id: StationEngineerJumpsuit
@@ -741,8 +1006,8 @@
   - StationEngineerJumpsuit
   - StationEngineerJumpskirt
   - StationEngineerHazardsuit
-  - SeniorEngineerJumpsuit
-  - SeniorEngineerJumpskirt
+  # - SeniorEngineerJumpsuit
+  # - SeniorEngineerJumpskirt
 
 - type: loadoutGroup
   id: StationEngineerBackpack
@@ -772,7 +1037,17 @@
   name: loadout-group-station-engineer-id
   loadouts:
   - StationEngineerPDA
-  - SeniorEngineerPDA
+  # - SeniorEngineerPDA
+
+- type: loadoutGroup
+  id: StationEngineerUnderwear
+  name: loadout-group-station-engineer-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersEngineer
+  - UnderwearTopBraEngineer
+  - UnderwearBottomPantiesEngineer
 
 - type: loadoutGroup
   id: AtmosphericTechnicianJumpsuit
@@ -788,6 +1063,7 @@
   minLimit: 0
   loadouts:
   - AtmosphericTechnicianWintercoat
+  - AtmosphericTechnicianCoatWorking
 
 - type: loadoutGroup
   id: AtmosphericTechnicianBackpack
@@ -805,6 +1081,16 @@
   - EngineeringWinterBoots
 
 - type: loadoutGroup
+  id: AtmosphericTechnicianUnderwear
+  name: loadout-group-atmospheric-technician-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersAtmosphericTechnician
+  - UnderwearTopBraAtmosphericTechnician
+  - UnderwearBottomPantiesAtmosphericTechnician
+
+- type: loadoutGroup
   id: SurvivalExtended
   name: loadout-group-survival-extended
   minLimit: 2
@@ -812,7 +1098,12 @@
   loadouts:
   - EmergencyNitrogenExtended
   - EmergencyOxygenExtended
+  # DS14-species-emergency-start
+  - EmergencyNonBreather
+  - EmergencyRobotNonBreather
+  # DS14-species-emergency-end
   - LoadoutSpeciesVoxNitrogen
+  - EmergencyBeerExtended
 
 # Science
 - type: loadoutGroup
@@ -851,6 +1142,17 @@
   loadouts:
   - BrownShoes
   - ScienceWinterBoots
+  - ShoesBootsLaceup
+
+- type: loadoutGroup
+  id: ResearchDirectorUnderwear
+  name: loadout-group-research-director-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersResearchDirector
+  - UnderwearTopBraResearchDirector
+  - UnderwearBottomPantiesResearchDirector
 
 - type: loadoutGroup
   id: ScientistHead
@@ -859,7 +1161,7 @@
   loadouts:
   - RoboticistCap
   - SkullBandana
-  - ScientificBeret
+  # - ScientificBeret
 
 - type: loadoutGroup
   id: ScientistNeck
@@ -876,8 +1178,8 @@
   - ScientistJumpskirt
   - RoboticistJumpsuit
   - RoboticistJumpskirt
-  - SeniorResearcherJumpsuit
-  - SeniorResearcherJumpskirt
+  # - SeniorResearcherJumpsuit
+  # - SeniorResearcherJumpskirt
 
 - type: loadoutGroup
   id: ScientistBackpack
@@ -897,7 +1199,7 @@
   - ScienceWintercoat
   - RoboticistLabCoat
   - RoboticistWintercoat
-  - SeniorResearcherLabCoat
+  # - SeniorResearcherLabCoat
 
 - type: loadoutGroup
   id: ScientistShoes
@@ -921,7 +1223,17 @@
   name: loadout-group-scientist-id
   loadouts:
   - ScientistPDA
-  - SeniorResearcherPDA
+  # - SeniorResearcherPDA
+
+- type: loadoutGroup
+  id: ScientistUnderwear
+  name: loadout-group-scientist-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersScientist
+  - UnderwearTopBraScientist
+  - UnderwearBottomPantiesScientist
 
 - type: loadoutGroup
   id: ResearchAssistantJumpsuit
@@ -929,6 +1241,16 @@
   loadouts:
   - WhiteJumpsuit
   - WhiteJumpskirt
+
+- type: loadoutGroup
+  id: ResearchAssistantUnderwear
+  name: loadout-group-research-assistant-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersResearchAssistant
+  - UnderwearTopBraResearchAssistant
+  - UnderwearBottomPantiesResearchAssistant
 
 # Security
 - type: loadoutGroup
@@ -957,6 +1279,7 @@
   loadouts:
   - HeadofSecurityCloak
   - HeadofSecurityMantle
+  - HeadofSecurityMantleShoulder
 
 - type: loadoutGroup
   id: HeadofSecurityOuterClothing
@@ -964,6 +1287,32 @@
   loadouts:
   - HeadofSecurityCoat
   - HeadofSecurityWinterCoat
+
+- type: loadoutGroup
+  id: HeadofSecurityShoes
+  name: loadout-group-head-of-security-shoes
+  loadouts:
+  - JackSecBoots
+  - CombatBoots
+  - JackBoots
+  - ShoesBootsLaceup
+
+- type: loadoutGroup
+  id: HeadofSecuritySocks
+  name: loadout-group-head-of-security-socks
+  loadouts:
+  - UnderwearSocksHeadOfSecurity
+  - UnderwearWomenSocksHeadOfSecurity
+
+- type: loadoutGroup
+  id: HeadofSecurityUnderwear
+  name: loadout-group-head-of-security-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersHeadofSecurity
+  - UnderwearTopBraHeadofSecurity
+  - UnderwearBottomPantiesHeadofSecurity
 
 - type: loadoutGroup
   id: WardenHead
@@ -988,6 +1337,23 @@
   - WardenArmoredWinterCoat
 
 - type: loadoutGroup
+  id: WardenSocks
+  name: loadout-group-warden-socks
+  loadouts:
+  - UnderwearSocksWarden
+  - UnderwearWomenSocksWarden
+
+- type: loadoutGroup
+  id: WardenUnderwear
+  name: loadout-group-warden-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersWarden
+  - UnderwearTopBraWarden
+  - UnderwearBottomPantiesWarden
+
+- type: loadoutGroup
   id: SecurityHead
   name: loadout-group-security-head
   minLimit: 0
@@ -998,6 +1364,13 @@
   - TrooperHat
 
 - type: loadoutGroup
+  id: SecurityMask
+  name: loadout-group-security-mask
+  minLimit: 0
+  loadouts:
+  - SecurityBandana
+
+- type: loadoutGroup
   id: SecurityJumpsuit
   name: loadout-group-security-jumpsuit
   loadouts:
@@ -1005,8 +1378,8 @@
   - SecurityJumpskirt
   - SecurityJumpsuitGrey
   - SecurityJumpskirtGrey
-  - SeniorOfficerJumpsuit
-  - SeniorOfficerJumpskirt
+  # - SeniorOfficerJumpsuit
+  # - SeniorOfficerJumpskirt
   - TrooperUniform
 
 - type: loadoutGroup
@@ -1036,15 +1409,34 @@
   id: SecurityShoes
   name: loadout-group-security-shoes
   loadouts:
+  - JackSecBoots
+  - CombatBoots
   - JackBoots
-  - SecurityWinterBoots
+  # - SecurityWinterBoots
 
 - type: loadoutGroup
   id: SecurityPDA
   name: loadout-group-security-id
   loadouts:
   - SecurityPDA
-  - SeniorOfficerPDA
+  # - SeniorOfficerPDA
+
+- type: loadoutGroup
+  id: SecuritySocks
+  name: loadout-group-security-socks
+  loadouts:
+  - UnderwearSocksSecurityOfficer
+  - UnderwearWomenSocksSecurityOfficer
+
+- type: loadoutGroup
+  id: SecurityUnderwear
+  name: loadout-group-security-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersSecurityOfficer
+  - UnderwearTopBraSecurityOfficer
+  - UnderwearBottomPantiesSecurityOfficer
 
 - type: loadoutGroup
   id: DetectiveHead
@@ -1071,12 +1463,47 @@
   - NoirJumpskirt
 
 - type: loadoutGroup
+  id: DetectiveBackpack
+  name: loadout-group-detective-backpack
+  loadouts:
+  - SecurityBackpack
+  - SecuritySatchel
+  - SecurityDuffel
+  - DetectiveSatchel
+  - DetectiveGreySatchel
+
+- type: loadoutGroup
   id: DetectiveOuterClothing
   name: loadout-group-detective-outerclothing
   loadouts:
   - DetectiveArmorVest
   - DetectiveCoat
   - DetectiveCoatGrey
+  - DetectiveCoatAlt
+
+- type: loadoutGroup
+  id: DetectiveShoes
+  name: loadout-group-detective-shoes
+  loadouts:
+  - DetectiveBoots
+  - DetectiveGreyBoots
+
+- type: loadoutGroup
+  id: DetectiveSocks
+  name: loadout-group-detective-socks
+  loadouts:
+  - UnderwearSocksDetective
+  - UnderwearWomenSocksDetective
+
+- type: loadoutGroup
+  id: DetectiveUnderwear
+  name: loadout-group-detective-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersDetective
+  - UnderwearTopBraDetective
+  - UnderwearBottomPantiesDetective
 
 - type: loadoutGroup
   id: SecurityCadetJumpsuit
@@ -1086,6 +1513,23 @@
   - RedJumpskirt
 
 - type: loadoutGroup
+  id: SecurityCadetSocks
+  name: loadout-group-security-cadet-socks
+  loadouts:
+  - UnderwearSocksCadet
+  - UnderwearWomenSocksCadet
+
+- type: loadoutGroup
+  id: SecurityCadetUnderwear
+  name: loadout-group-security-cadet-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersCadet
+  - UnderwearTopBraCadet
+  - UnderwearBottomPantiesCadet
+
+- type: loadoutGroup
   id: SurvivalSecurity
   name: loadout-group-survival-security
   minLimit: 2
@@ -1093,7 +1537,12 @@
   loadouts:
   - EmergencyNitrogenSecurity
   - EmergencyOxygenSecurity
+  # DS14-species-emergency-start
+  - EmergencyNonBreather
+  - EmergencyRobotNonBreather
+  # DS14-species-emergency-end
   - LoadoutSpeciesVoxNitrogen
+  - EmergencyBeerSecurity
 
 - type: loadoutGroup
   id: SecurityStar
@@ -1129,6 +1578,15 @@
   - ChiefMedicalOfficerWintercoat
 
 - type: loadoutGroup
+  id: ChiefMedicalOfficerBackpack
+  name: loadout-group-chief-medical-officer-backpack
+  loadouts:
+  - MedicalDoctorBackpack
+  - MedicalDoctorSatchel
+  - MedicalDoctorDuffel
+  - MedicalDoctorSatchelBlueCat
+
+- type: loadoutGroup
   id: ChiefMedicalOfficerNeck
   name: loadout-group-chief-medical-officer-neck
   minLimit: 0
@@ -1142,6 +1600,17 @@
   loadouts:
   - BrownShoes
   - MedicalWinterBoots
+  - ShoesBootsLaceup
+
+- type: loadoutGroup
+  id: ChiefMedicalOfficerUnderwear
+  name: loadout-group-chief-medical-officer-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersCMO
+  - UnderwearTopBraCMO
+  - UnderwearBottomPantiesCMO
 
 - type: loadoutGroup
   id: MedicalDoctorHead
@@ -1149,7 +1618,7 @@
   minLimit: 0
   loadouts:
   - MedicalBeret
-  - SeniorPhysicianBeret
+  # - SeniorPhysicianBeret
   - MedicalHeadMirror
   - BlueSurgeryCap
   - GreenSurgeryCap
@@ -1162,8 +1631,8 @@
   loadouts:
   - MedicalDoctorJumpsuit
   - MedicalDoctorJumpskirt
-  - SeniorPhysicianJumpsuit
-  - SeniorPhysicianJumpskirt
+  # - SeniorPhysicianJumpsuit
+  # - SeniorPhysicianJumpskirt
   - MedicalBlueScrubs
   - MedicalGreenScrubs
   - MedicalPurpleScrubs
@@ -1175,7 +1644,7 @@
   loadouts:
   - RegularLabCoat
   - MedicalDoctorWintercoat
-  - SeniorPhysicianLabCoat
+  # - SeniorPhysicianLabCoat
 
 - type: loadoutGroup
   id: MedicalBackpack
@@ -1197,7 +1666,17 @@
   name: loadout-group-medical-doctor-id
   loadouts:
   - MedicalDoctorPDA
-  - SeniorPhysicianPDA
+  # - SeniorPhysicianPDA
+
+- type: loadoutGroup
+  id: MedicalDoctorUnderwear
+  name: loadout-group-medical-doctor-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersDoctor
+  - UnderwearTopBraDoctor
+  - UnderwearBottomPantiesDoctor
 
 - type: loadoutGroup
   id: MedicalGloves
@@ -1222,6 +1701,16 @@
   - WhiteJumpskirt
 
 - type: loadoutGroup
+  id: MedicalInternUnderwear
+  name: loadout-group-medical-intern-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersIntern
+  - UnderwearTopBraIntern
+  - UnderwearBottomPantiesIntern
+
+- type: loadoutGroup
   id: ChemistJumpsuit
   name: loadout-group-chemist-jumpsuit
   loadouts:
@@ -1244,6 +1733,16 @@
   - ChemistBackpack
   - ChemistSatchel
   - ChemistDuffel
+
+- type: loadoutGroup
+  id: ChemistUnderwear
+  name: loadout-group-chemist-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersChemist
+  - UnderwearTopBraChemist
+  - UnderwearBottomPantiesChemist
 
 - type: loadoutGroup
   id: ParamedicHead
@@ -1275,6 +1774,16 @@
   - MedicalWinterBoots
 
 - type: loadoutGroup
+  id: ParamedicUnderwear
+  name: loadout-group-paramedic-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersParamedic
+  - UnderwearTopBraParamedic
+  - UnderwearBottomPantiesParamedic
+
+- type: loadoutGroup
   id: SurvivalMedical
   name: loadout-group-survival-medical
   minLimit: 2
@@ -1282,15 +1791,32 @@
   loadouts:
   - EmergencyNitrogenMedical
   - EmergencyOxygenMedical
+  # DS14-species-emergency-start
+  - EmergencyNonBreather
+  - EmergencyRobotNonBreather
+  # DS14-species-emergency-end
   - LoadoutSpeciesVoxNitrogen
+  - EmergencyBeerMedical
 
 # Wildcards
+- type: loadoutGroup
+  id: ZookeeperUnderwear
+  name: loadout-group-zookeeper-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersZookeeper
+  - UnderwearTopBraZookeeper
+  - UnderwearBottomPantiesZookeeper
+
 - type: loadoutGroup
   id: ReporterJumpsuit
   name: loadout-group-reporter-jumpsuit
   loadouts:
   - ReporterJumpsuit
   - JournalistJumpsuit
+  - ReporterJumpskirt
+  - JournalistJumpskirt
 
 - type: loadoutGroup
   id: PsychologistJumpsuit
@@ -1298,6 +1824,16 @@
   loadouts:
   - PsychologistJumpsuit
   - PsychologistJumpskirt
+
+- type: loadoutGroup
+  id: ReporterUnderwear
+  name: loadout-group-reporter-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersReporter
+  - UnderwearTopBraReporter
+  - UnderwearBottomPantiesReporter
 
 - type: loadoutGroup
   id: BoxerJumpsuit
@@ -1314,6 +1850,16 @@
   - BlueBoxingGloves
   - GreenBoxingGloves
   - YellowBoxingGloves
+
+- type: loadoutGroup
+  id: BoxerUnderwear
+  name: loadout-group-boxer-underwear
+  minLimit: 2
+  hidden: true
+  loadouts:
+  - UnderwearBottomBoxersBoxer
+  - UnderwearTopBraBoxer
+  - UnderwearBottomPantiesBoxer
 
 # Other
 - type: loadoutGroup

@@ -27,6 +27,8 @@ public sealed class StoreBoundUserInterface : BoundUserInterface
 
     protected override void Open()
     {
+        base.Open();
+
         _menu = this.CreateWindow<StoreMenu>();
         if (EntMan.TryGetComponent<StoreComponent>(Owner, out var store))
             _menu.Title = Loc.GetString(store.Name);
@@ -65,6 +67,10 @@ public sealed class StoreBoundUserInterface : BoundUserInterface
         switch (state)
         {
             case StoreUpdateState msg:
+                // start-backmen: bank
+                _menu?.SetCanBuyFromBank(IoCManager.Resolve<EntityManager>().HasComponent<Content.Shared.Backmen.Store.BuyStoreBankComponent>(Owner)); // backmen: currency
+                // end-backmen: bank
+
                 _listings = msg.Listings;
 
                 _menu?.UpdateBalance(msg.Balance);

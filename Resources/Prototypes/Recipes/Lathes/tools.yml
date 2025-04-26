@@ -3,7 +3,8 @@
 - type: latheRecipe
   abstract: true
   id: BaseToolRecipe
-  category: Tools
+  categories:
+  - Tools
   completetime: 2
   materials:
     Steel: 200
@@ -52,7 +53,8 @@
 - type: latheRecipe
   id: CableStack
   result: CableApcStack1
-  category: Parts
+  categories:
+  - Parts
   completetime: 0.1
   materials:
     Steel: 30
@@ -195,6 +197,30 @@
     Plasma: 300
     Gold: 50
 
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: EmergencyOxygenTank
+  result: EmergencyOxygenTank
+  completetime: 2
+  materials:
+    Steel: 200
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: OxygenTank
+  result: OxygenTank
+  completetime: 2
+  materials:
+    Steel: 500
+
+- type: latheRecipe
+  parent: BaseToolRecipe
+  id: GeigerCounter
+  result: GeigerCounter
+  completetime: 2
+  materials:
+    Plastic: 200
+    
 - type: latheRecipe
   parent: BaseToolRecipe
   id: HoloprojectorField

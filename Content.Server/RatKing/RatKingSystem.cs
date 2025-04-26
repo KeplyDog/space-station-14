@@ -10,6 +10,7 @@ using Content.Shared.Dataset;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Pointing;
+using Content.Shared.Random.Helpers;
 using Content.Shared.RatKing;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
@@ -43,17 +44,21 @@ namespace Content.Server.RatKing
             if (args.Handled)
                 return;
 
-            if (!TryComp<HungerComponent>(uid, out var hunger))
-                return;
-
-            //make sure the hunger doesn't go into the negatives
-            if (_hunger.GetHunger(hunger) < component.HungerPerArmyUse)
+            // DS14-necro-start
+            if (component.NeedHunger && TryComp<HungerComponent>(uid, out var hunger))
             {
-                _popup.PopupEntity(Loc.GetString("rat-king-too-hungry"), uid, uid);
-                return;
+                //make sure the hunger doesn't go into the negatives
+                if (_hunger.GetHunger(hunger) < component.HungerPerArmyUse)
+                {
+                    _popup.PopupEntity(Loc.GetString("rat-king-too-hungry"), uid, uid);
+                    return;
+                }
+
+                _hunger.ModifyHunger(uid, -component.HungerPerArmyUse, hunger);
             }
+            // DS14-necro-end
+
             args.Handled = true;
-            _hunger.ModifyHunger(uid, -component.HungerPerArmyUse, hunger);
             var servant = Spawn(component.ArmyMobSpawnId, Transform(uid).Coordinates);
             var comp = EnsureComp<RatKingServantComponent>(servant);
             comp.King = uid;
@@ -120,10 +125,10 @@ namespace Content.Server.RatKing
             base.DoCommandCallout(uid, component);
 
             if (!component.OrderCallouts.TryGetValue(component.CurrentOrder, out var datasetId) ||
-                !PrototypeManager.TryIndex<DatasetPrototype>(datasetId, out var datasetPrototype))
+                !PrototypeManager.TryIndex<LocalizedDatasetPrototype>(datasetId, out var datasetPrototype))
                 return;
 
-            var msg = Random.Pick(datasetPrototype.Values);
+            var msg = Random.Pick(datasetPrototype);
             _chat.TrySendInGameICMessage(uid, msg, InGameICChatType.Speak, true);
         }
     }

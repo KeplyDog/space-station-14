@@ -49,6 +49,13 @@ public sealed partial class SubdermalImplantComponent : Component
     /// </summary>
     [DataField]
     public EntityWhitelist? Blacklist;
+    
+    /// <summary>
+    /// If set, this ProtoId is used when attempting to draw the implant instead.
+    /// Useful if the implant is a child to another implant and you don't want to differentiate between them when drawing.
+    /// </summary>
+    [DataField]
+    public EntProtoId? DrawableProtoIdOverride;
 }
 
 /// <summary>
@@ -63,6 +70,13 @@ public sealed partial class UseFreedomImplantEvent : InstantActionEvent
 {
 
 }
+
+// DS14-implants-start
+public sealed partial class UseAdrenalImplantEvent : InstantActionEvent
+{
+
+}
+// DS14-implants-end
 
 /// <summary>
 /// Used for triggering trigger events on the implant via action

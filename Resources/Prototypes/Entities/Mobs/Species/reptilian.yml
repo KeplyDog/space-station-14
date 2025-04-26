@@ -11,6 +11,9 @@
     - Snout
     - HeadTop
     - HeadSide
+    - Tail # DS14
+    - Hair # DS14, just in case
+    undergarmentBottom: UndergarmentBottomBoxersReptilian
   - type: Hunger
   - type: Puller
     needsHands: false
@@ -76,6 +79,7 @@
           32:
             sprite: Mobs/Species/Human/displacement.rsi
             state: jumpsuit-female
+  - type: Sanity # DS14
 
 
 - type: entity
@@ -90,6 +94,9 @@
     - Snout
     - HeadTop
     - HeadSide
+    - Tail # DS14
+    - Hair # DS14, just in case
+    undergarmentBottom: UndergarmentBottomBoxersReptilian
   - type: Inventory
     speciesId: reptilian
     femaleDisplacements:

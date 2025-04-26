@@ -10,6 +10,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - CaptainUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobHeadOfPersonnel
@@ -20,15 +21,23 @@
   - HoPJumpsuit
   - HoPBackpack
   - HoPOuterClothing
-  - Glasses
+  - HoPShoes
+  # - Glasses
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - HoPUnderwear # DS14-Underwear
 
 # Silicons
+#- type: roleLoadout
+#  id: JobBorg
+#  nameDataset: roleloadout doesn't support both so need to update that first.
+#  canCustomizeName: true
+
 - type: roleLoadout
   id: JobStationAi
   nameDataset: NamesAI
+  canCustomizeName: true
 
 # Civilian
 - type: roleLoadout
@@ -46,6 +55,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - DefaultWhiteUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobBartender
@@ -59,6 +69,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - BartenderUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobServiceWorker
@@ -70,6 +81,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - ServiceUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobChef
@@ -84,7 +96,10 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
-
+  - ChefUnderwear # DS14-Underwear
+  - ChefHand # DS14
+  - ChefGloves # DS14
+  
 - type: roleLoadout
   id: JobLibrarian
   groups:
@@ -95,6 +110,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - LibrarianUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobLawyer
@@ -107,6 +123,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - LawyerUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobChaplain
@@ -122,6 +139,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - ChaplainUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobJanitor
@@ -137,6 +155,7 @@
   - Trinkets
   - JanitorPlunger
   - GroupSpeciesBreathTool
+  - JanitorUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobBotanist
@@ -150,6 +169,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - BotanistUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobClown
@@ -163,6 +183,7 @@
   - Glasses
   - SurvivalClown
   - Trinkets
+  - ClownUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobMime
@@ -171,12 +192,14 @@
   - MimeHead
   - MimeMask
   - MimeJumpsuit
+  - MimeNeck # DS14
   - MimeBackpack
   - MimeOuterClothing
   - MimeBelt
   - Glasses
   - SurvivalMime
   - Trinkets
+  - MimeUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobMusician
@@ -190,6 +213,7 @@
   - Trinkets
   - Instruments
   - GroupSpeciesBreathTool
+  - MusicianUnderwear # DS14-Underwear
 
 # Cargo
 - type: roleLoadout
@@ -202,10 +226,11 @@
   - CargoTechnicianBackpack
   - QuartermasterOuterClothing
   - QuartermasterShoes
-  - Glasses
+  # - Glasses
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - QuartermasterUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobCargoTechnician
@@ -220,11 +245,13 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - CargoTechnicianUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobSalvageSpecialist
   groups:
   - GroupTankHarness
+  - SalvageSpecialistJumpsuit
   - SalvageSpecialistBackpack
   - SalvageSpecialistOuterClothing
   - SalvageSpecialistShoes
@@ -232,6 +259,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - SalvageSpecialistUnderwear # DS14-Underwear
 
 # Engineering
 - type: roleLoadout
@@ -240,13 +268,14 @@
   - GroupTankHarness
   - ChiefEngineerHead
   - ChiefEngineerJumpsuit
-  - StationEngineerBackpack
+  - ChiefEngineerBackpack
   - ChiefEngineerNeck
   - ChiefEngineerOuterClothing
   - ChiefEngineerShoes
   - SurvivalExtended
   - Trinkets
   - GroupSpeciesBreathTool
+  - ChiefEngineerUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobTechnicalAssistant
@@ -257,6 +286,7 @@
   - SurvivalExtended
   - Trinkets
   - GroupSpeciesBreathTool
+  - TechnicalAssistantUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobStationEngineer
@@ -271,6 +301,7 @@
   - SurvivalExtended
   - Trinkets
   - GroupSpeciesBreathTool
+  - StationEngineerUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobAtmosphericTechnician
@@ -283,6 +314,7 @@
   - SurvivalExtended
   - Trinkets
   - GroupSpeciesBreathTool
+  - AtmosphericTechnicianUnderwear # DS14-Underwear
 
 # Science
 - type: roleLoadout
@@ -296,10 +328,11 @@
   - ResearchDirectorOuterClothing
   - ScientistGloves
   - ResearchDirectorShoes
-  - Glasses
+  # - Glasses
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - ResearchDirectorUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobScientist
@@ -317,6 +350,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - ScientistUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobResearchAssistant
@@ -328,26 +362,32 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - ResearchAssistantUnderwear # DS14-Underwear
 
 # Security
 - type: roleLoadout
   id: JobHeadOfSecurity
   groups:
+  - GroupTankHarness
   - HeadofSecurityHead
+  - SecurityMask
   - HeadofSecurityNeck
   - HeadofSecurityJumpsuit
   - SecurityBackpack
   - SecurityBelt
   - HeadofSecurityOuterClothing
-  - SecurityShoes
+  - HeadofSecurityShoes
   - SurvivalSecurity
   - Trinkets
   - SecurityStar
   - GroupSpeciesBreathToolSecurity
+  - HeadofSecuritySocks # DS14-Underwear
+  - HeadofSecurityUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobWarden
   groups:
+  - GroupTankHarness
   - WardenHead
   - WardenJumpsuit
   - SecurityBackpack
@@ -358,11 +398,15 @@
   - Trinkets
   - SecurityStar
   - GroupSpeciesBreathToolSecurity
+  - WardenSocks # DS14-Underwear
+  - WardenUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobSecurityOfficer
   groups:
+  - GroupTankHarness
   - SecurityHead
+  - SecurityMask
   - SecurityJumpsuit
   - SecurityBackpack
   - SecurityOuterClothing
@@ -373,29 +417,37 @@
   - Trinkets
   - SecurityStar
   - GroupSpeciesBreathToolSecurity
+  - SecuritySocks # DS14-Underwear
+  - SecurityUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobDetective
   groups:
+  - GroupTankHarness
   - DetectiveHead
   - DetectiveNeck
   - DetectiveJumpsuit
-  - SecurityBackpack
+  - DetectiveBackpack
   - DetectiveOuterClothing
-  - SecurityShoes
+  - DetectiveShoes
   - SurvivalSecurity
   - Trinkets
   - SecurityStar
   - GroupSpeciesBreathToolSecurity
+  - DetectiveSocks # DS14-Underwear
+  - DetectiveUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobSecurityCadet
   groups:
+  - GroupTankHarness
   - SecurityCadetJumpsuit
   - SecurityBackpack
   - SurvivalSecurity
   - Trinkets
   - GroupSpeciesBreathToolSecurity
+  - SecurityCadetSocks # DS14-Underwear
+  - SecurityCadetUnderwear # DS14-Underwear
 
 # Medical
 - type: roleLoadout
@@ -406,14 +458,15 @@
   - MedicalMask
   - ChiefMedicalOfficerJumpsuit
   - MedicalGloves
-  - MedicalBackpack
+  - ChiefMedicalOfficerBackpack
   - ChiefMedicalOfficerOuterClothing
   - ChiefMedicalOfficerNeck
   - ChiefMedicalOfficerShoes
-  - Glasses
+  # - Glasses
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - ChiefMedicalOfficerUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobMedicalDoctor
@@ -431,6 +484,7 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - MedicalDoctorUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobMedicalIntern
@@ -442,6 +496,25 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - MedicalInternUnderwear # DS14-Underwear
+
+- type: roleLoadout
+  id: JobMedicalSurgeon
+  groups:
+  - GroupTankHarness
+  - MedicalDoctorHead
+  - MedicalMask
+  - MedicalDoctorJumpsuit
+  - MedicalGloves
+  - MedicalBackpack
+  - MedicalDoctorOuterClothing
+  - MedicalShoes
+  - MedicalDoctorPDA
+  - Glasses
+  - SurvivalMedical
+  - Trinkets
+  - GroupSpeciesBreathToolMedical
+  - MedicalDoctorUnderwear
 
 - type: roleLoadout
   id: JobChemist
@@ -456,6 +529,7 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - ChemistUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobParamedic
@@ -472,6 +546,7 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - ParamedicUnderwear # DS14-Underwear
 
 # Wildcards
 - type: roleLoadout
@@ -483,6 +558,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - ZookeeperUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobReporter
@@ -494,6 +570,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - ReporterUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobPsychologist
@@ -505,6 +582,7 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - PsychologistUnderwear # DS14-Underwear
 
 - type: roleLoadout
   id: JobBoxer
@@ -517,15 +595,25 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+  - BoxerUnderwear # DS14-Underwear
 
 # These loadouts are used for non-crew spawns, like off-station antags and event mobs
 # They will be used without player configuration, thus they will only ever apply what is forced by MinLimit
 
+# gives vox a harness and breathing mask
+# nitrogen tank not included
 - type: roleLoadout
   id: RoleSurvivalVoxSupport
   groups:
   - GroupSpeciesBreathTool
   - GroupTankHarness
+
+# gives vox a nitrogen breathing tank
+# other species get nothing
+- type: roleLoadout
+  id: RoleSurvivalVoxTank
+  groups:
+  - GroupEVATankVox
 
 - type: roleLoadout
   id: RoleSurvivalStandard

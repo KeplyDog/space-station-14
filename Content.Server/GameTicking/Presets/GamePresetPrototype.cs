@@ -9,7 +9,7 @@ namespace Content.Server.GameTicking.Presets
     /// <summary>
     ///     A round-start setup preset, such as which antagonists to spawn.
     /// </summary>
-    [Prototype("gamePreset")]
+    [Prototype]
     public sealed partial class GamePresetPrototype : IPrototype
     {
         [IdDataField]
@@ -24,8 +24,14 @@ namespace Content.Server.GameTicking.Presets
         [DataField("description")]
         public string Description = string.Empty;
 
+        [DataField("showInAdminVote")]
+        public bool ShowInAdminVote;
+
         [DataField("showInVote")]
         public bool ShowInVote;
+
+        [DataField("voteType")]
+        public string VoteType = "admin";
 
         [DataField("minPlayers")]
         public int? MinPlayers;

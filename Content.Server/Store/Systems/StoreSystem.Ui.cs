@@ -146,35 +146,47 @@ public sealed partial class StoreSystem
         //condition checking because why not
         if (listing.Conditions != null)
         {
-            var args = new ListingConditionArgs(component.AccountOwner ?? buyer, uid, listing, EntityManager);
+            var args = new ListingConditionArgs(component.AccountOwner ?? GetBuyerMind(buyer), uid, listing, EntityManager);
             var conditionsMet = listing.Conditions.All(condition => condition.Condition(args));
 
             if (!conditionsMet)
                 return;
         }
 
-        //check that we have enough money
-        var cost = listing.Cost;
-        foreach (var (currency, amount) in cost)
+        if (!IsOnStartingMap(uid, component))
+            DisableRefund(uid, component);
+
+        if (!HandleBankTransaction(uid, component, msg, listing)) // backmen: currency
         {
-            if (!component.Balance.TryGetValue(currency, out var balance) || balance < amount)
+            //check that we have enough money
+            foreach (var currency in listing.Cost)
             {
-                return;
+                if (!component.Balance.TryGetValue(currency.Key, out var balance) || balance < currency.Value)
+                {
+                    return;
+                }
+            }
+
+            //subtract the cash
+            foreach (var (currency, value) in listing.Cost)
+            {
+                component.Balance[currency] -= value;
+
+                component.BalanceSpent.TryAdd(currency, FixedPoint2.Zero);
+
+                component.BalanceSpent[currency] += value;
+            }
+        // start-backmen: currency
+        }
+        else
+        {
+            foreach (var (currency, value) in listing.Cost)
+            {
+                component.BalanceSpent.TryAdd(currency, FixedPoint2.Zero);
+                component.BalanceSpent[currency] += value;
             }
         }
-
-        if (!IsOnStartingMap(uid, component))
-            component.RefundAllowed = false;
-
-        //subtract the cash
-        foreach (var (currency, amount) in cost)
-        {
-            component.Balance[currency] -= amount;
-
-            component.BalanceSpent.TryAdd(currency, FixedPoint2.Zero);
-
-            component.BalanceSpent[currency] += amount;
-        }
+         // end-backmen: currency
 
         //spawn entity
         if (listing.ProductEntity != null)
@@ -269,6 +281,7 @@ public sealed partial class StoreSystem
         listing.PurchaseAmount++; //track how many times something has been purchased
         _audio.PlayEntity(component.BuySuccessSound, msg.Actor, uid); //cha-ching!
 
+        PlayEject(uid); // backmen: currency
         var buyFinished = new StoreBuyFinishedEvent
         {
             PurchasedItem = listing,
@@ -332,7 +345,7 @@ public sealed partial class StoreSystem
 
         if (!IsOnStartingMap(uid, component))
         {
-            component.RefundAllowed = false;
+            DisableRefund(uid, component);
             UpdateUserInterface(buyer, uid, component);
         }
 
@@ -376,6 +389,7 @@ public sealed partial class StoreSystem
         component.BoughtEntities.Add(purchase);
         var refundComp = EnsureComp<StoreRefundComponent>(purchase);
         refundComp.StoreEntity = uid;
+        refundComp.BoughtTime = _timing.CurTime;
     }
 
     private bool IsOnStartingMap(EntityUid store, StoreComponent component)
